@@ -1,0 +1,21 @@
+.post_wrapper {
+    display: grid;
+    grid-template-columns: 1fr 12fr;
+    color: black;
+    margin-top: 15px;
+    background-color: white;
+    width: 75%;
+}
+
+.post_wrapper img {
+    width: 65px;
+    height: 65px;
+}
+
+.post_wrapper span {
+    padding-left: 5px;
+}
+
+.post_item {
+    padding-left: 5px;
+}

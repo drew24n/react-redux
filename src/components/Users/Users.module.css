@@ -1,0 +1,38 @@
+.wrapper {
+    display: grid;
+    grid-template-areas: "p i";
+    grid-template-columns: 1fr 5fr;
+    border: deepskyblue 2px solid;
+    width: 75%;
+    margin: 15px auto 15px auto;
+    padding: 10px;
+    background-color: white;
+}
+
+.picture > img {
+    width: 125px;
+    height: 125px;
+    border-radius: 50%;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    padding-right: 75px;
+    padding-top: 20px;
+}
+
+.buttons input {
+    margin: 5px;
+}
+
+.page {
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.selected_page {
+    color: lawngreen;
+    cursor: pointer;
+    font-size: 20px;
+}

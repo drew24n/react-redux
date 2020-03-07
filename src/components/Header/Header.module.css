@@ -1,0 +1,9 @@
+.header {
+    grid-area: h;
+    background-color: darkgreen;
+    height: 100px;
+    line-height: 100px;
+    font-size: 3em;
+    color: white;
+    text-align: center;
+}

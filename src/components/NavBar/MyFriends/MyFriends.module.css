@@ -1,0 +1,11 @@
+.friends_wrapper {
+    margin-top: 40px;
+    padding: 10px;
+    text-align: center;
+    background-color: white;
+}
+
+.friend_item {
+    padding-bottom: 10px;
+    color: deepskyblue;
+}

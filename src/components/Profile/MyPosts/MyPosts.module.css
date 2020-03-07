@@ -1,0 +1,10 @@
+.posts_wrapper {
+    margin-top: 30px;
+}
+
+.posts_wrapper textarea {
+    width: 75%;
+    height: 5em;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+}

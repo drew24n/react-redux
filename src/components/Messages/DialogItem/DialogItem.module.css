@@ -1,0 +1,9 @@
+.dialog_item a {
+    color: darkred;
+    text-decoration: none;
+    font-size: 1.15em;
+}
+
+a.active_dialog {
+    color: darkgreen;
+}
