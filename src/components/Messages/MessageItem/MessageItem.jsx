@@ -1,9 +1,9 @@
 import React from "react";
-import style from "./MessageItem.module.css";
+import style from "./message_item.module.css";
 
 const MessageItem = (props) => {
     return (
-        <div className={style.message_item}>
+        <div className={style.container}>
             <div>{props.content}</div>
         </div>
     )

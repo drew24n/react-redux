@@ -1,9 +1,9 @@
 import React from "react";
-import style from "./Header.module.css";
+import style from "./header.module.css";
 
 const Header = () => {
     return (
-        <header className={style.header}>Social network!</header>
+        <header className={style.container}>Social network!</header>
     )
 };
 

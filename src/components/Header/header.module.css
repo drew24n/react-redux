@@ -1,4 +1,4 @@
-.header {
+.container {
     grid-area: h;
     background-color: darkgreen;
     height: 100px;

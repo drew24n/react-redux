@@ -1,15 +1,15 @@
 import React from "react";
-import style from "./Post.module.css";
+import style from "./post.module.css";
 import defaultProfilePicture from "../../../../assets/images/default_user_pic.png"
 
 const Post = (props) => {
     return (
-        <div className={style.post_wrapper}>
+        <div className={style.container}>
             <div>
-                <img src={props.user_pic === undefined ? defaultProfilePicture : props.user_pic} alt=""/>
-                <span>Likes: {props.likes}</span>
+                <img className={style.img} src={props.userPic === "" ? defaultProfilePicture : props.userPic} alt=""/>
+                <span className={style.likes}>Likes: {props.likes}</span>
             </div>
-            <div className={style.post_item}>{props.post}</div>
+            <div className={style.item}>{props.post}</div>
         </div>
     )
 };

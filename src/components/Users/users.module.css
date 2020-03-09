@@ -1,0 +1,40 @@
+.pagination {
+    display: block;
+}
+.item_container {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 15px;
+}
+.item {
+    display: block;
+    border: deepskyblue 2px solid;
+    width: 15%;
+    padding: 10px;
+    background-color: white;
+}
+.picture {
+    display: block;
+    margin: 0 auto;
+    width: 125px;
+    height: 125px;
+    border-radius: 50%;
+}
+.info {
+    display: block;
+    text-align: center;
+}
+.follow input {
+    display: block;
+    cursor: pointer;
+    margin: 5px auto 0 auto;
+}
+.page {
+    cursor: pointer;
+    font-size: 20px;
+}
+.selected {
+    color: lawngreen;
+    cursor: pointer;
+    font-size: 20px;
+}

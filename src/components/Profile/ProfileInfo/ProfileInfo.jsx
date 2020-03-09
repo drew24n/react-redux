@@ -1,12 +1,19 @@
 import React from "react";
-import style from "./ProfileInfo.module.css";
+import style from "./profile_info.module.css";
 import defaultProfilePicture from "../../../assets/images/default_user_pic.png"
 
 const ProfileInfo = (props) => {
     return (
-        <div className={style.profile_info}>
-            <img src={props.user_info.picture.path === undefined ? defaultProfilePicture : props.user_info.picture.path} alt=""/>
-            {props.user_info.description.map(d => <div>{d.name}{d.age}{d.country}</div>)}
+        <div>
+            <img src={props.userInfo.picture.path === ""
+                ? defaultProfilePicture
+                : props.userInfo.picture.path}
+                 className={style.img} alt=""/>
+            {props.userInfo.description.map(d => <div key={d.id}>
+                <div>Name: {d.name}</div>
+                <div>Age: {d.age}</div>
+                <div>Country: {d.country}</div>
+            </div>)}
         </div>
     )
 };

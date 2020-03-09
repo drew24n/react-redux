@@ -1,4 +1,4 @@
-.footer {
+.container {
     grid-area: f;
     background-color: darkgreen;
     height: 100px;

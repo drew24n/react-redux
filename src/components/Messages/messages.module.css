@@ -1,28 +1,23 @@
-.messages_wrapper {
+.container {
     background-color: lightsteelblue;
     padding: 10px;
 }
-
-.dialog_item {
+.dialogs_container {
     display: block;
     float: left;
     width: 25%;
 }
-
-.message_item {
+.content_container {
     display: block;
     float: right;
     width: 75%;
 }
-
-.send_message textarea {
+.container textarea {
     display: block;
     width: 75%;
     height: 5em;
-    margin-top: 15px;
 }
-
-.send_message button {
+.container button {
     display: block;
     margin-top: 15px;
 }

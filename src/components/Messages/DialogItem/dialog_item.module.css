@@ -1,9 +1,10 @@
-.dialog_item a {
+.link {
+    display: block;
     color: darkred;
     text-decoration: none;
     font-size: 1.15em;
 }
-
-a.active_dialog {
+.active {
+    display: block;
     color: darkgreen;
 }

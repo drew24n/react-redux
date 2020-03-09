@@ -1,23 +1,21 @@
 import React from "react";
-import style from "./MyPosts.module.css";
+import style from "./my_posts.module.css";
 import Post from "./Post/Post";
 
 const MyPosts = (props) => {
-    let on_typing_post = (e) => {
-        let current_text = e.target.value;
-        props.typing_post(current_text)
+    let onTypePost = (e) => {
+        let text = e.target.value;
+        props.typePostFunc(text)
     };
-
-    let on_add_post = () => props.add_post();
-
-    let post_item = props.post_items.map(p => <Post post={p.post} likes={p.likes} user_pic={props.picture} key={p.id}/>);
+    let onAddPost = () => props.addPost();
+    let postItem = props.postItems.map(p => <Post post={p.post} likes={p.likes} userPic={props.picture} key={p.id}/>);
 
     return (
-        <div className={style.posts_wrapper}>
+        <div className={style.container}>
             <h3>My posts:</h3>
-            <div><textarea onChange={on_typing_post} value={props.typing} placeholder="write your post!"/></div>
-            <div><button onClick={on_add_post}>Add new post</button></div>
-            <div>{post_item}</div>
+            <textarea className={style.textarea} onChange={onTypePost} value={props.typePost} placeholder="write your post!"/>
+            <button onClick={onAddPost}>Add new post</button>
+            <div>{postItem}</div>
         </div>
     )
 };

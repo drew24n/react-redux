@@ -1,9 +1,9 @@
 import React from "react";
-import style from "./Weather.module.css";
+import style from "./weather.module.css";
 
 const Weather = () => {
     return (
-        <div className={style.weather_wrapper}>
+        <div className={style.container}>
             <h3>Weather</h3>
         </div>
     )

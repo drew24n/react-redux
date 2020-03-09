@@ -1,4 +1,5 @@
-.profile_info img {
+.img {
+    display: block;
     width: 125px;
     height: 125px;
     border-radius: 50%;
