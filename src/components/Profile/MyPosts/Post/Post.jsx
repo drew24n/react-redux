@@ -6,7 +6,7 @@ const Post = (props) => {
     return (
         <div className={style.container}>
             <div>
-                <img className={style.img} src={props.userPic === "" ? defaultProfilePicture : props.userPic} alt=""/>
+                <img className={style.img} src={!props.userPic ? defaultProfilePicture : props.userPic} alt=""/>
                 <span className={style.likes}>Likes: {props.likes}</span>
             </div>
             <div className={style.item}>{props.post}</div>

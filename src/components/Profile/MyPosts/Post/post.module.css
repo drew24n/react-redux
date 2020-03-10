@@ -12,6 +12,7 @@
 .img {
     width: 65px;
     height: 65px;
+    border-radius: 50%;
 }
 .likes {
     padding-left: 5px;

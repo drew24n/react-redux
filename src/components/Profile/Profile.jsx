@@ -3,11 +3,11 @@ import style from "./profile.module.css";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import ProfileInfoContainer from "./ProfileInfo/ProfileInfoContainer";
 
-const Profile = () => {
+const Profile = (props) => {
     return (
         <div className={style.container}>
-            <ProfileInfoContainer/>
-            <MyPostsContainer/>
+            <ProfileInfoContainer userProfile={props.userProfile}/>
+            <MyPostsContainer userPic={props.userProfile.photos.small}/>
         </div>
     )
 };

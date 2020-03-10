@@ -4,9 +4,8 @@ import {addPostAC, typePostAC} from "../../../redux/profile-reducer";
 
 let mapStateToProps = (state) => {
     return {
-        userInfo: state.profile.userInfo,
         postItems: state.profile.postItems,
-        picture: state.profile.userInfo.picture.path,
+        picture: state.profile.userProfile.photos.small,
         typePost: state.profile.typePost,
     }
 };
