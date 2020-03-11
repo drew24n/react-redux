@@ -8,7 +8,7 @@ let initialState = {
 
 let usersReducer = (state = initialState, action) => {
     switch (action.type) {
-        case "ADD-FRIEND": return {
+        case "FOLLOW": return {
             ...state, users: state.users.map(u => {
                     if (u.id === action.userId) {
                         return ({...u, followed: true})
@@ -16,7 +16,7 @@ let usersReducer = (state = initialState, action) => {
                     return u;
                 })
             };
-        case "REMOVE-FRIEND": return {
+        case "UNFOLLOW": return {
             ...state, users: state.users.map(u => {
                     if (u.id === action.userId) {
                         return ({...u, followed: false})
@@ -24,7 +24,6 @@ let usersReducer = (state = initialState, action) => {
                     return u;
                 })
             };
-
         case "GET-USERS": return {...state, users: [/*...state.users,*/...action.users]};
         case "GET-USERS-AMOUNT": return {...state, usersAmount: action.usersAmount};
         case "CURRENT-PAGE": return {...state, currentPage: action.pageNumber};
@@ -33,11 +32,11 @@ let usersReducer = (state = initialState, action) => {
     }
 };
 
-export let follow = (userId) => ({type: "ADD-FRIEND", userId});
-export let unfollow = (userId) => ({type: "REMOVE-FRIEND", userId});
-export let setUsers = (users) => ({type: "GET-USERS", users});
-export let setCurrentPage = (pageNumber) => ({type: "CURRENT-PAGE", pageNumber});
-export let setUsersAmount = (usersAmount) => ({type: "GET-USERS-AMOUNT", usersAmount});
-export let setIsFetching = (isFetching) => ({type: "IS-FETCHING", isFetching});
+export const follow = (userId) => ({type: "FOLLOW", userId});
+export const unfollow = (userId) => ({type: "UNFOLLOW", userId});
+export const setUsers = (users) => ({type: "GET-USERS", users});
+export const setCurrentPage = (pageNumber) => ({type: "CURRENT-PAGE", pageNumber});
+export const setUsersAmount = (usersAmount) => ({type: "GET-USERS-AMOUNT", usersAmount});
+export const setIsFetching = (isFetching) => ({type: "IS-FETCHING", isFetching});
 
 export default usersReducer;

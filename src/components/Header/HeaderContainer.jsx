@@ -1,15 +1,15 @@
 import React from "react";
 import Header from "./Header";
-import axios from "axios";
 import {connect} from "react-redux";
 import {setAuthData, setIsFetching} from "../../redux/auth-reducer";
 import Preloader from "../common/Preloader/Preloader";
+import {API} from "../api/api";
 
 class HeaderContainer extends React.Component {
     componentDidMount() {
         this.props.setIsFetching(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {withCredentials: true}).then(response => {
-            this.props.setAuthData(response.data);
+        API.me().then(response => {
+            this.props.setAuthData(response);
             this.props.setIsFetching(false);
         })
     }

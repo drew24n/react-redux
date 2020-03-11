@@ -3,4 +3,17 @@
     width: 125px;
     height: 125px;
     border-radius: 50%;
+    margin: auto 0;
+}
+.container {
+    background-color: #000;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 20px;
+    height: 100%;
+    border: deepskyblue 2px solid;
+}
+.description {
+    display: block;
+    width: fit-content;
 }

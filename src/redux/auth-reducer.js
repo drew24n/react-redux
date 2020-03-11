@@ -1,13 +1,5 @@
 let initialState = {
-    data: {
-        data: {
-            id: undefined,
-            email: "",
-            login: "",
-        },
-        resultCode: undefined,
-        messages: [],
-    },
+    data: {},
     isFetching: false,
 };
 

@@ -1,7 +1,6 @@
 import React from "react";
 import style from "./navbar.module.css";
 import {NavLink} from "react-router-dom";
-import FollowersContainer from "./Followers/FollowersContainer";
 
 const NavBar = () => {
     return (
@@ -11,7 +10,6 @@ const NavBar = () => {
             <NavLink to="/weather" className={style.link} activeClassName={style.active}>Weather</NavLink>
             <NavLink to="/settings" className={style.link} activeClassName={style.active}>Settings</NavLink>
             <NavLink to="/users" className={style.link} activeClassName={style.active}>Users</NavLink>
-            <FollowersContainer/>
         </nav>
     )
 };
