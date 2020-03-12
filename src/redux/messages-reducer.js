@@ -1,5 +1,5 @@
-export const sendMessageAC = () => ({type: "SEND-MESSAGE"});
-export const typeMessageAC = (text) => ({type: "TYPE-MESSAGE", text});
+const TYPE_MESSAGE = "TYPE_MESSAGE";
+const SEND_MESSAGE = "SEND_MESSAGE";
 
 let initialState = {
         dialogItem: [
@@ -13,10 +13,10 @@ let initialState = {
         ],
 };
 
-let messagesReducer = (state = initialState, action) => {
+const messagesReducer = (state = initialState, action) => {
     switch (action.type) {
-        case "TYPE-MESSAGE": return {...state, typeMessage: action.text};
-        case "SEND-MESSAGE": {
+        case TYPE_MESSAGE: return {...state, typeMessage: action.text};
+        case SEND_MESSAGE: {
             let stateCopy = {...state, messageItem: [...state.messageItem]};
             let newMessage = {
                 id: () => {let i = stateCopy.messageItem.length; i++; return i;},
@@ -29,5 +29,8 @@ let messagesReducer = (state = initialState, action) => {
         default: return state;
     }
 };
+
+export const sendMessageAC = () => ({type: SEND_MESSAGE});
+export const typeMessageAC = (text) => ({type: TYPE_MESSAGE, text});
 
 export default messagesReducer;

@@ -1,7 +1,7 @@
 import React from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import {setIsFetching, setUserProfile} from "../../redux/profile-reducer";
+import {setIsFetchingAC, setUserProfileAC} from "../../redux/profile-reducer";
 import Preloader from "../common/Preloader/Preloader";
 import {withRouter} from "react-router-dom";
 import {API} from "../api/api";
@@ -30,6 +30,11 @@ let mapStateToProps = (state) => ({
     isFetching: state.profile.isFetching,
 });
 
+let mapDispatchToProps = (dispatch) => ({
+    setUserProfile: (userProfile) => dispatch(setUserProfileAC(userProfile)),
+    setIsFetching: (isFetching) => dispatch(setIsFetchingAC(isFetching)),
+});
+
 let ProfileWithRouter = withRouter(ProfileContainer);
 
-export default connect(mapStateToProps, {setUserProfile, setIsFetching})(ProfileWithRouter);
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileWithRouter);

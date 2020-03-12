@@ -1,24 +1,12 @@
+const PUSH_POST = "PUSH_POST";
+const TYPE_POST = "TYPE_POST";
+const USER_PROFILE = "USER_PROFILE";
+const IS_FETCHING = "IS_FETCHING";
+
 let initialState = {
         userProfile: {
-            aboutMe: "",
-            contacts: {
-                facebook: "",
-                website: "",
-                vk: "",
-                twitter: "",
-                instagram: "",
-                youtube: "",
-                github: "",
-                mainLink: "",
-            },
-            lookingForAJob: false,
-            lookingForAJobDescription: "",
-            fullName: "",
-            userId: 0,
-            photos: {
-                small: "",
-                large: ""
-            }
+            contacts: {},
+            photos: {},
         },
         typePost: "",
         postItems: [
@@ -28,9 +16,9 @@ let initialState = {
         isFetching: false,
 };
 
-let profileReducer = (state = initialState, action) => {
+const profileReducer = (state = initialState, action) => {
     switch (action.type) {
-        case "PUSH-POST": {
+        case PUSH_POST: {
             let stateCopy = {...state, postItems: [...state.postItems]};
             let newPost = {
                 id: () => {let i = stateCopy.postItems.length; i++; return i},
@@ -41,16 +29,16 @@ let profileReducer = (state = initialState, action) => {
             stateCopy.typePost = "";
             return stateCopy;
         }
-        case "TYPE-POST": return {...state, typePost: action.text};
-        case "USER-PROFILE": return {...state, userProfile: action.userProfile};
-        case "IS-FETCHING": return {...state, isFetching: action.isFetching};
+        case TYPE_POST: return {...state, typePost: action.text};
+        case USER_PROFILE: return {...state, userProfile: action.userProfile};
+        case IS_FETCHING: return {...state, isFetching: action.isFetching};
         default: return state;
     }
 };
 
-export const addPostAC = () => ({type: "PUSH-POST"});
-export const typePostAC = (text) => ({type: "TYPE-POST", text});
-export const setUserProfile = (userProfile) => ({type: "USER-PROFILE", userProfile});
-export const setIsFetching = (isFetching) => ({type: "IS-FETCHING", isFetching});
+export const addPostAC = () => ({type: PUSH_POST});
+export const typePostAC = (text) => ({type: TYPE_POST, text});
+export const setUserProfileAC = (userProfile) => ({type: USER_PROFILE, userProfile});
+export const setIsFetchingAC = (isFetching) => ({type: IS_FETCHING, isFetching});
 
 export default profileReducer;

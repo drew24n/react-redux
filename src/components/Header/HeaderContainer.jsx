@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "./Header";
 import {connect} from "react-redux";
-import {setAuthData, setIsFetching} from "../../redux/auth-reducer";
+import {setAuthDataAC, setIsFetchingAC} from "../../redux/auth-reducer";
 import Preloader from "../common/Preloader/Preloader";
 import {API} from "../api/api";
 
@@ -27,4 +27,11 @@ let mapStateToProps = (state) => ({
     isFetching: state.auth.isFetching,
 });
 
-export default connect(mapStateToProps, {setAuthData, setIsFetching})(HeaderContainer);
+let mapDispatchToProps = (dispatch) => {
+    return {
+        setAuthData: (data) => dispatch(setAuthDataAC(data)),
+        setIsFetching: (isFetching) => dispatch(setIsFetchingAC(isFetching)),
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(HeaderContainer);

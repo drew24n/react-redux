@@ -38,7 +38,7 @@ let Users = (props) => {
                 </div>)}
             </div>
             <div className={style.pagination}>{pages.map(p => <span key={p} className={props.currentPage === p ? style.selected : style.page}
-                          onClick={() => props.switchPage(p)}>{p} </span>)}
+                          onClick={() => props.changePage(p)}>{p} </span>)}
             </div>
         </div>
     )
