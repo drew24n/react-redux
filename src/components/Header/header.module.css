@@ -31,3 +31,12 @@
     margin-right: 30px;
     font-size: 20px;
 }
+.unauthorized p {
+    margin: 0;
+    color: white;
+}
+.unauthorized button {
+    float: right;
+    height: 30px;
+    cursor: pointer;
+}

@@ -7,7 +7,7 @@ const Header = (props) => {
             <span className={style.title}>Social network!</span>
             {props.data.resultCode === 0
                 ? <span className={style.authorized}>Hello,<br/>{props.data.data.login}</span>
-                : <button type="input" className={style.unauthorized}>Login</button>}
+                : <div className={style.unauthorized}><p>Not authorized!</p><button>Login</button></div>}
         </header>
     )
 };

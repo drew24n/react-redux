@@ -24,7 +24,7 @@
     display: block;
     text-align: center;
 }
-.follow input {
+.follow button {
     display: block;
     cursor: pointer;
     margin: 5px auto 0 auto;
