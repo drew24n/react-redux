@@ -1,3 +1,5 @@
+import {API} from "../components/api/api";
+
 const AUTH_DATA = "AUTH_DATA";
 const IS_FETCHING = "IS_FETCHING";
 
@@ -14,7 +16,15 @@ const authReducer = (state = initialState, action) => {
     }
 };
 
-export const setAuthDataAC = (data) => ({type: AUTH_DATA, data});
-export const setIsFetchingAC = (isFetching) => ({type: IS_FETCHING, isFetching});
+export const setAuthData = (data) => ({type: AUTH_DATA, data});
+export const setIsFetching = (isFetching) => ({type: IS_FETCHING, isFetching});
+
+export const authMe = () => (dispatch) => {
+    dispatch(setIsFetching(true));
+    API.me().then(response => {
+        dispatch(setAuthData(response));
+        dispatch(setIsFetching(false));
+    })
+};
 
 export default authReducer;

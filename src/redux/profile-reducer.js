@@ -1,3 +1,5 @@
+import {API} from "../components/api/api";
+
 const PUSH_POST = "PUSH_POST";
 const TYPE_POST = "TYPE_POST";
 const USER_PROFILE = "USER_PROFILE";
@@ -38,7 +40,18 @@ const profileReducer = (state = initialState, action) => {
 
 export const addPostAC = () => ({type: PUSH_POST});
 export const typePostAC = (text) => ({type: TYPE_POST, text});
-export const setUserProfileAC = (userProfile) => ({type: USER_PROFILE, userProfile});
-export const setIsFetchingAC = (isFetching) => ({type: IS_FETCHING, isFetching});
+export const setUserProfile = (userProfile) => ({type: USER_PROFILE, userProfile});
+export const setIsFetching = (isFetching) => ({type: IS_FETCHING, isFetching});
+
+export const getProfile = (usersId) => {
+    return (dispatch) => {
+        dispatch(setIsFetching(true));
+        if (usersId === undefined) {usersId = 2}
+        API.getProfile(usersId).then(response => {
+            dispatch(setUserProfile(response));
+            dispatch(setIsFetching(false));
+        })
+    }
+};
 
 export default profileReducer;

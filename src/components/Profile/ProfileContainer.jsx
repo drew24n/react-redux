@@ -1,20 +1,14 @@
 import React from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import {setIsFetchingAC, setUserProfileAC} from "../../redux/profile-reducer";
+import {getProfile} from "../../redux/profile-reducer";
 import Preloader from "../common/Preloader/Preloader";
 import {withRouter} from "react-router-dom";
-import {API} from "../api/api";
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
-        this.props.setIsFetching(true);
         let usersId = this.props.match.params.usersId;
-        if (!usersId) {usersId = 2}
-        API.getProfile(usersId).then(response => {
-            this.props.setUserProfile(response);
-            this.props.setIsFetching(false);
-        })
+        this.props.getUserProfile(usersId)
     }
 
     render() {
@@ -31,8 +25,7 @@ let mapStateToProps = (state) => ({
 });
 
 let mapDispatchToProps = (dispatch) => ({
-    setUserProfile: (userProfile) => dispatch(setUserProfileAC(userProfile)),
-    setIsFetching: (isFetching) => dispatch(setIsFetchingAC(isFetching)),
+    getUserProfile: (usersId) => dispatch(getProfile(usersId)),
 });
 
 let ProfileWithRouter = withRouter(ProfileContainer);
