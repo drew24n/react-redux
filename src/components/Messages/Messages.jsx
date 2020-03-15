@@ -21,7 +21,6 @@ const Messages = (props) => {
             <button onClick={onSendMessage}>Send message</button>
         </div>
     )
-
 };
 
 export default Messages;

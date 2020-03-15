@@ -9,6 +9,7 @@ import MessagesContainer from "./Messages/MessagesContainer";
 import UsersContainer from "./Users/UsersContainer";
 import ProfileContainer from "./Profile/ProfileContainer";
 import HeaderContainer from "./Header/HeaderContainer";
+import Login from "./Login/Login";
 
 const App = () => {
     return (
@@ -23,6 +24,7 @@ const App = () => {
                     <Route path="/weather" render={() => <Weather/>}/>
                     <Route path="/settings" render={() => <Settings/>}/>
                     <Route path="/users" render={() => <UsersContainer/>}/>
+                    <Route path="/login" render={() => <Login/>}/>
                 </div>
             </div>
         </BrowserRouter>
