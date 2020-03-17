@@ -1,5 +1,10 @@
 import React from "react";
 import style from "./settings.module.css";
+import {compose} from "redux";
+import {withAuthRedirect} from "../hoc/withAuthRedirect";
+import {connect} from "react-redux";
+
+let mapStateToProps = (state) => ({isAuth: state.auth.isAuth});
 
 const Settings = () => {
     return (
@@ -9,4 +14,7 @@ const Settings = () => {
     )
 };
 
-export default Settings;
+export default compose(
+    connect(mapStateToProps),
+    withAuthRedirect
+)(Settings);

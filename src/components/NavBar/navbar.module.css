@@ -1,6 +1,6 @@
 .container {
     grid-area: n;
-    background-color: darkcyan;
+    background-color: cadetblue;
     padding: 10px;
     font-size: 1.15em;
 }
@@ -8,7 +8,8 @@
     display: block;
     text-decoration: none;
     color: white;
+    font-size: 22px;
 }
 .active {
-    color: skyblue;
+    color: chartreuse;
 }

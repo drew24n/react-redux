@@ -12,4 +12,6 @@ export const API = {
     me() {return instance.get(`auth/me`).then(response => response.data)},
     getProfile(userId) {return instance.get(`profile/${userId}`).then(response => response.data)},
     getUsers(currentPage, pageSize) {return instance.get(`users?page=${currentPage}&count=${pageSize}`)},
+    getStatus(userId) {return instance.get(`profile/status/` + userId)},
+    updateStatus(status) {return instance.put(`/profile/status`, {status: status})}
 };

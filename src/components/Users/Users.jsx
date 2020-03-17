@@ -9,7 +9,7 @@ let Users = (props) => {
     for (let i = 1; i <= pagesAmount; i++) {pages.push(i)}
 
     return (
-        <div>
+        <div className={style.container}>
             <div className={style.item_container}>{props.users.map(u =>
                 <div key={u.id} className={style.item}>
                     <NavLink to={`profile/` + u.id}>

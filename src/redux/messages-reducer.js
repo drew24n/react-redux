@@ -3,8 +3,8 @@ const SEND_MESSAGE = "SEND_MESSAGE";
 
 let initialState = {
         dialogItem: [
-            {id: 21, name: "Julia"},
-            {id: 35, name: "Kate"},
+            {id: 21, name: "User1"},
+            {id: 35, name: "User2"},
         ],
         typeMessage: "",
         messageItem: [

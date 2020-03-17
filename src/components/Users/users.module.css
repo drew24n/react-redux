@@ -1,3 +1,7 @@
+.container {
+    background-color: darkslategray;
+    padding: 15px;
+}
 .pagination {
     display: block;
 }
@@ -32,6 +36,7 @@
 .page {
     cursor: pointer;
     font-size: 20px;
+    color: lightsteelblue;
 }
 .selected {
     color: lawngreen;

@@ -1,0 +1,8 @@
+.container {}
+.container p {
+    display: inline-block;
+    margin-right: 5px;
+}
+.container input {
+    display: inline-block;
+}

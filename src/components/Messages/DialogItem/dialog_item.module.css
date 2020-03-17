@@ -1,10 +1,10 @@
 .link {
     display: block;
-    color: darkred;
+    color: lightblue;
     text-decoration: none;
     font-size: 1.15em;
 }
 .active {
     display: block;
-    color: darkgreen;
+    color: chartreuse;
 }

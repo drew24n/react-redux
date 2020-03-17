@@ -1,7 +1,7 @@
 import React from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import {getProfile} from "../../redux/profile-reducer";
+import {getProfile, getStatus, updateStatus} from "../../redux/profile-reducer";
 import Preloader from "../common/Preloader/Preloader";
 import {withRouter} from "react-router-dom";
 import {compose} from "redux";
@@ -10,7 +10,9 @@ import {withAuthRedirect} from "../hoc/withAuthRedirect";
 class ProfileContainer extends React.Component {
     componentDidMount() {
         let usersId = this.props.match.params.usersId;
-        this.props.getUserProfile(usersId)
+        if (usersId === undefined) {usersId = this.props.myId}
+        this.props.getUserProfile(usersId);
+        this.props.getUserStatus(usersId);
     }
 
     render() {
@@ -24,11 +26,15 @@ class ProfileContainer extends React.Component {
 let mapStateToProps = (state) => ({
     userProfile: state.profile.userProfile,
     isFetching: state.profile.isFetching,
+    status: state.profile.status,
     isAuth: state.auth.isAuth,
+    myId: state.auth.id,
 });
 
 let mapDispatchToProps = (dispatch) => ({
     getUserProfile: (usersId) => dispatch(getProfile(usersId)),
+    getUserStatus: (usersId) => dispatch(getStatus(usersId)),
+    updateUserStatus: (status) => dispatch(updateStatus(status)),
 });
 
 export default compose(
