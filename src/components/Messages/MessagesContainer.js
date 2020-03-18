@@ -1,4 +1,4 @@
-import {sendMessageAC, typeMessageAC} from "../../redux/messages-reducer";
+import {sendMessageAC} from "../../redux/messages-reducer";
 import Messages from "./Messages";
 import {connect} from "react-redux";
 import {compose} from "redux";
@@ -8,15 +8,13 @@ let mapStateToProps = (state) => {
     return {
         dialogItem: state.messages.dialogItem,
         messageItem: state.messages.messageItem,
-        typeMessage: state.messages.typeMessage,
         isAuth: state.auth.isAuth,
     }
 };
 
 let mapDispatchToProps = (dispatch) => {
     return {
-        typeMessageFunc: (text) => dispatch(typeMessageAC(text)),
-        sendMessage: () => dispatch(sendMessageAC()),
+        sendMessage: (message) => dispatch(sendMessageAC(message)),
     }
 };
 
