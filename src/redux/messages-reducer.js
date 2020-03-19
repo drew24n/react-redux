@@ -13,7 +13,8 @@ let initialState = {
 
 const messagesReducer = (state = initialState, action) => {
     if (action.type === SEND_MESSAGE) {
-        return {...state, messageItem: [...state.messageItem, {id: undefined, content: action.message}]};
+        let messageNumber = [...state.messageItem].length + 1;
+        return {...state, messageItem: [...state.messageItem, {id: messageNumber, content: action.message}]};
     } else return state;
 };
 
