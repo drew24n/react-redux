@@ -2,24 +2,18 @@ import React from "react";
 import style from "./login_page.module.css"
 import {Field, reduxForm} from "redux-form";
 import {CustomInput} from "../common/CustomForms/CustomForm";
-import {maxLenght, required} from "../../validators/validators";
+import {email, maxLenght, required} from "../../validators/validators";
+import {connect} from "react-redux";
+import {Login} from "../../redux/auth-reducer";
+import {Redirect} from "react-router-dom";
 
-const maxLenght10 = maxLenght(10);
-
-const LoginPage = () => {
-    return (
-        <div className={style.container}>
-            <h1>Login</h1>
-            <LoginReduxForm onSubmit={showAuthData}/>
-        </div>
-    )
-};
+const maxLenght25 = maxLenght(25);
 
 const LoginForm = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
-            <div><Field name={"login"} component={CustomInput} validate={[required, maxLenght10]} placeholder={"login"}/></div>
-            <div><Field name={"password"} component={CustomInput} validate={[required, maxLenght10]} type={"password"} placeholder={"password"}/></div>
+            <div><Field name={"email"} component={CustomInput} validate={[required, email, maxLenght25]} placeholder={"email"}/></div>
+            <div><Field name={"password"} component={CustomInput} validate={[required, maxLenght25]} type={"password"} placeholder={"password"}/></div>
             <div><Field name={"rememberMe"} component={"input"} type={"checkbox"}/>Remember me</div>
             <div><button>Enter</button></div>
         </form>
@@ -30,9 +24,22 @@ const LoginReduxForm = reduxForm({
     form: "authorization"
 })(LoginForm);
 
-export default LoginPage;
+const LoginPage = (props) => {
 
-let showAuthData = (values) => {
-    console.log(values);
-    alert("Auth");
+    let userLogin = (value) => props.Login(value);
+
+    if (props.isAuth) return <Redirect to={"/profile"}/>;
+
+    return (
+        <div className={style.container}>
+            <h1>Login</h1>
+            <LoginReduxForm onSubmit={userLogin}/>
+        </div>
+    )
 };
+
+const mapStateToProps = (state) => ({
+    isAuth: state.auth.isAuth,
+});
+
+export default connect(mapStateToProps, {Login})(LoginPage);

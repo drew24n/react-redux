@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "./Header";
 import {connect} from "react-redux";
-import {authMe} from "../../redux/auth-reducer";
+import {authMe, Logout} from "../../redux/auth-reducer";
 import Preloader from "../common/Preloader/Preloader";
 
 class HeaderContainer extends React.Component {
@@ -22,7 +22,8 @@ let mapStateToProps = (state) => ({
 });
 
 let mapDispatchToProps = (dispatch) => ({
-    auth: () => dispatch(authMe())
+    auth: () => dispatch(authMe()),
+    Logout: () => dispatch(Logout())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HeaderContainer);

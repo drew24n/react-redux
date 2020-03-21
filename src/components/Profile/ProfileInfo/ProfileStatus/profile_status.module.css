@@ -1,4 +1,6 @@
-.container {}
+.container span {
+    cursor: pointer;
+}
 .container p {
     display: inline-block;
     margin-right: 5px;

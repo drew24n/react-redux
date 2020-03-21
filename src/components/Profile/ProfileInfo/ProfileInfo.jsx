@@ -10,7 +10,7 @@ const ProfileInfo = (props) => {
             <div className={style.description}>
                 <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
                 {!props.userProfile.userId ? "" : <div>User ID: {props.userProfile.userId}</div>}
-                {!props.userProfile.fullName ? "" : <div>Name: {props.userProfile.fullName}</div>}
+                {!props.userProfile.fullName ? "" : <div>Login: {props.userProfile.fullName}</div>}
                 {!props.userProfile.aboutMe ? "" : <div>About: {props.userProfile.aboutMe}</div>}
                 {!props.userProfile.contacts.facebook ? "" : <div>Facebook: {props.userProfile.contacts.facebook}</div>}
                 {!props.userProfile.contacts.website ? "" : <div>Website: {props.userProfile.contacts.website}</div>}
