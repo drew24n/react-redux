@@ -1,4 +1,5 @@
 import {API} from "../components/api/api";
+import {stopSubmit} from "redux-form";
 
 const AUTH_DATA = "AUTH_DATA";
 const IS_FETCHING = "IS_FETCHING";
@@ -24,7 +25,7 @@ export const setIsFetching = (isFetching) => ({type: IS_FETCHING, isFetching});
 
 export const authMe = () => (dispatch) => {
     dispatch(setIsFetching(true));
-    API.me().then(response => {
+    return API.me().then(response => {
         if(response.resultCode === 0) {
             let {id, email, login} = response.data;
             dispatch(setAuthData({id, email, login}, true));
@@ -38,7 +39,7 @@ export const Login = ({email, password, rememberMe}) => (dispatch) => {
     API.login({email, password, rememberMe}).then(response => {
         if (response.resultCode === 0) {
             dispatch(authMe())
-        }
+        } else dispatch(stopSubmit("authorization", {_error: response.messages[0]}));
         dispatch(setIsFetching(false))
     })
 };

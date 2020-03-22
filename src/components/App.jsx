@@ -9,24 +9,39 @@ import UsersContainer from "./Users/UsersContainer";
 import ProfileContainer from "./Profile/ProfileContainer";
 import HeaderContainer from "./Header/HeaderContainer";
 import Login from "./LoginPage/LoginPage";
+import {connect} from "react-redux";
+import {initializeApp} from "../redux/app-reducer";
 
-const App = () => {
-    return (
-        <BrowserRouter>
-            <div className={style.container}>
-                <HeaderContainer/>
-                <Footer/>
-                <NavBar/>
-                <div className={style.content}>
-                    <Route path="/profile/:usersId?" render={() => <ProfileContainer/>}/>
-                    <Route path="/messages" render={() => <MessagesContainer/>}/>
-                    <Route path="/settings" render={() => <Settings/>}/>
-                    <Route path="/users" render={() => <UsersContainer/>}/>
-                    <Route path="/login" render={() => <Login/>}/>
+class App extends React.Component {
+    componentDidMount() {this.props.initialize()}
+
+    render() {
+        if (!this.props.isInitialized) {return null}
+        return (
+            <BrowserRouter>
+                <div className={style.container}>
+                    <HeaderContainer/>
+                    <Footer/>
+                    <NavBar/>
+                    <div className={style.content}>
+                        <Route path="/profile/:usersId?" render={() => <ProfileContainer/>}/>
+                        <Route path="/messages" render={() => <MessagesContainer/>}/>
+                        <Route path="/settings" render={() => <Settings/>}/>
+                        <Route path="/users" render={() => <UsersContainer/>}/>
+                        <Route path="/login" render={() => <Login/>}/>
+                    </div>
                 </div>
-            </div>
-        </BrowserRouter>
-    )
-};
+            </BrowserRouter>
+        )
+    }
+}
 
-export default App;
+const mapDispatchToProps = (dispatch) => ({
+    initialize: () => dispatch(initializeApp())
+});
+
+const mapStateToProps = (state) => ({
+    isInitialized: state.app.isInitialized
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

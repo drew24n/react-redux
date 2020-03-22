@@ -1,18 +1,14 @@
 import React from "react";
 import Header from "./Header";
 import {connect} from "react-redux";
-import {authMe, Logout} from "../../redux/auth-reducer";
+import {Logout} from "../../redux/auth-reducer";
 import Preloader from "../common/Preloader/Preloader";
 
-class HeaderContainer extends React.Component {
-    componentDidMount() {this.props.auth()}
-
-    render() {
-        return <>
-            {this.props.isFetching === true ? <Preloader/> : null}
-            <Header {...this.props}/>
-        </>
-    }
+function HeaderContainer(props) {
+    return <>
+        {props.isFetching === true ? <Preloader/> : null}
+        <Header {...props}/>
+    </>
 }
 
 let mapStateToProps = (state) => ({
@@ -22,7 +18,6 @@ let mapStateToProps = (state) => ({
 });
 
 let mapDispatchToProps = (dispatch) => ({
-    auth: () => dispatch(authMe()),
     Logout: () => dispatch(Logout())
 });
 
