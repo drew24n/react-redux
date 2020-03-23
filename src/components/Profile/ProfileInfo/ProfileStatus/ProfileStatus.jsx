@@ -1,5 +1,7 @@
 import React from "react";
 import style from "./profile_status.module.css";
+import {compose} from "redux";
+import {withRouter} from "react-router-dom";
 
 class ProfileStatus extends React.Component {
 
@@ -32,15 +34,23 @@ class ProfileStatus extends React.Component {
     };
 
     render() {
-        return <div className={style.container}>
-            <p>Status:</p>
-            {!this.state.isEditable && <span onClick={this.enableEdit}>{this.props.status}</span>}
-            {this.state.isEditable && <input onChange={this.changeLocalStatus}
-                                             onBlur={this.disableEdit}
-                                             autoFocus={true} value={this.state.status}/>}
-        </div>
+        let usersId = Number(this.props.match.params.usersId);
+        if (usersId) {
+            return <div className={style.other_user}>
+                    <p>Status:</p>
+                    <span>{!this.props.status ? "no status" : this.props.status}</span>
+                </div>
+        } else {
+            return <div className={style.my_status}>
+                <p>Status:</p>
+                {!this.state.isEditable && <span onClick={this.enableEdit}>{!this.props.status ? "no status" : this.props.status}</span>}
+                {this.state.isEditable && <input onChange={this.changeLocalStatus}
+                                                 onBlur={this.disableEdit}
+                                                 autoFocus={true} value={this.state.status}/>}
+            </div>
+        }
     }
 }
 
 
-export default ProfileStatus;
+export default compose(withRouter)(ProfileStatus);

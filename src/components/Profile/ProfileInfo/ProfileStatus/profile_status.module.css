@@ -1,10 +1,17 @@
-.container span {
+.my_status span {
     cursor: pointer;
 }
-.container p {
+.my_status p {
     display: inline-block;
     margin-right: 5px;
 }
-.container input {
+.my_status input {
     display: inline-block;
+}
+.other_user p {
+    display: inline-block;
+    margin-right: 5px;
+}
+.other_user span {
+    color: grey;
 }
