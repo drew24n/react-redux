@@ -17,7 +17,9 @@ export const initializeSuccess = () => ({type: SET_INITIALIZED});
 
 export const initializeApp = () => (dispatch) => {
     let promise = dispatch(authMe());
-    promise.then(dispatch(initializeSuccess()));
+    Promise.all([promise]).then(() => {
+            dispatch(initializeSuccess())
+        })
 };
 
 export default appReducer;
