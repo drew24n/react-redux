@@ -1,5 +1,6 @@
 .my_status span {
     cursor: pointer;
+    color: chartreuse;
 }
 .my_status p {
     display: inline-block;
@@ -8,10 +9,6 @@
 .my_status input {
     display: inline-block;
 }
-.other_user p {
-    display: inline-block;
-    margin-right: 5px;
-}
-.other_user span {
-    color: grey;
+.other_user span:last-child {
+    color: cadetblue;
 }

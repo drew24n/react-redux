@@ -35,9 +35,9 @@ class ProfileStatus extends React.Component {
 
     render() {
         let usersId = Number(this.props.match.params.usersId);
-        if (usersId) {
+        if (usersId && usersId !== this.props.myId) {
             return <div className={style.other_user}>
-                    <p>Status:</p>
+                    <span>Status: </span>
                     <span>{!this.props.status ? "no status" : this.props.status}</span>
                 </div>
         } else {

@@ -86,7 +86,7 @@ export const unfollowUser = (userId) => {
     }
 };
 
-export const getUsers = (currentPage, pageSize) => {
+export const requestUsers = (currentPage, pageSize) => {
     return (dispatch) => {
         dispatch(setIsFetchingAC(true));
         API.getUsers(currentPage, pageSize).then(response => {
