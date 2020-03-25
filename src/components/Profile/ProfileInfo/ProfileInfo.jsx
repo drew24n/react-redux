@@ -1,14 +1,14 @@
 import React from "react";
 import style from "./profile_info.module.css";
 import defaultProfilePicture from "../../../assets/images/default_user_pic.png"
-import ProfileStatus from "./ProfileStatus/ProfileStatus";
+import ProfileStatusWithHooks from "./ProfileStatus/ProfileStatusWithHooks";
 
 const ProfileInfo = (props) => {
     return (
         <div className={style.container}>
             <img className={style.img} src={!props.userProfile.photos.small ? defaultProfilePicture : props.userProfile.photos.small} alt=""/>
             <div className={style.description}>
-                <ProfileStatus status={props.status} updateStatus={props.updateStatus} myId={props.myId}/>
+                <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus} myId={props.myId}/>
                 {!props.userProfile.userId ? "" : <div>User ID: {props.userProfile.userId}</div>}
                 {!props.userProfile.fullName ? "" : <div>Login: {props.userProfile.fullName}</div>}
                 {!props.userProfile.aboutMe ? "" : <div>About: {props.userProfile.aboutMe}</div>}
