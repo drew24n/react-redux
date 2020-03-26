@@ -3,7 +3,7 @@ import style from "./users.module.css";
 import defaultProfilePicture from  "../../assets/images/default_user_pic.png"
 import {NavLink} from "react-router-dom";
 
-let Users = (props) => {
+let Users = React.memo((props) => {
     let pagesAmount = Math.ceil(props.usersAmount / props.pageSize);
     let pages = [];
     for (let i = 1; i <= pagesAmount; i++) {pages.push(i)}
@@ -30,5 +30,5 @@ let Users = (props) => {
             </div>
         </div>
     )
-};
+});
 export default Users;

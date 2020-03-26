@@ -3,7 +3,7 @@ import style from "./profile_status.module.css";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 
-const ProfileStatusWithHooks = (props) => {
+const ProfileStatusWithHooks = React.memo((props) => {
 
     let [status, updateStatus] = useState(props.status);
     const changeStatus = (e) => updateStatus(e.currentTarget.value);
@@ -33,6 +33,6 @@ const ProfileStatusWithHooks = (props) => {
                                              autoFocus={true} value={status}/>}
         </div>
     }
-};
+});
 
 export default compose(withRouter)(ProfileStatusWithHooks);

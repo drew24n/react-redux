@@ -3,7 +3,7 @@ import style from "./profile_info.module.css";
 import defaultProfilePicture from "../../../assets/images/default_user_pic.png"
 import ProfileStatusWithHooks from "./ProfileStatus/ProfileStatusWithHooks";
 
-const ProfileInfo = (props) => {
+const ProfileInfo = React.memo((props) => {
     return (
         <div className={style.container}>
             <img className={style.img} src={!props.userProfile.photos.small ? defaultProfilePicture : props.userProfile.photos.small} alt=""/>
@@ -25,6 +25,6 @@ const ProfileInfo = (props) => {
             </div>
         </div>
     )
-};
+});
 
 export default ProfileInfo;

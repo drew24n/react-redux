@@ -3,7 +3,7 @@ import style from "./profile_status.module.css";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 
-class ProfileStatus extends React.Component {
+class ProfileStatus extends React.PureComponent {
 
     state = {
         isEditable: false,
