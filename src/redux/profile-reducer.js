@@ -40,31 +40,26 @@ export const changeStatus = (status) => ({type: CHANGE_STATUS, status});
 export const setStatus = (status) => ({type: SET_STATUS, status});
 
 export const getProfile = (usersId) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(setIsFetching(true));
         if (usersId === undefined) {usersId = 2}
-        API.getProfile(usersId).then(response => {
-            dispatch(setUserProfile(response));
-            dispatch(setIsFetching(false));
-        })
+        let response = await API.getProfile(usersId);
+        dispatch(setUserProfile(response));
+        dispatch(setIsFetching(false));
     }
 };
 
 export const updateStatus = (status) => {
-    return (dispatch) => {
-        API.updateStatus(status).then(response => {
-            if (response.data.resultCode === 0)
-            dispatch(changeStatus(status))
-        })
+    return async (dispatch) => {
+        let response = await API.updateStatus(status);
+        if (response.data.resultCode === 0) dispatch(changeStatus(status))
     }
 };
 
 export const getStatus = (userId) => {
-    return (dispatch) => {
-        API.getStatus(userId).then(response => {
-            if (response.status === 200)
-                dispatch(setStatus(response.data))
-        })
+    return async (dispatch) => {
+        let response = await API.getStatus(userId);
+            if (response.status === 200) dispatch(setStatus(response.data))
     }
 };
 

@@ -23,35 +23,30 @@ const authReducer = (state = initialState, action) => {
 export const setAuthData = ({id, email, login}, isAuth) => ({type: AUTH_DATA, data: {id, email, login}, isAuth});
 export const setIsFetching = (isFetching) => ({type: IS_FETCHING, isFetching});
 
-export const authMe = () => (dispatch) => {
+export const authMe = () => async (dispatch) => {
     dispatch(setIsFetching(true));
-    return API.me().then(response => {
-        if(response.resultCode === 0) {
-            let {id, email, login} = response.data;
-            dispatch(setAuthData({id, email, login}, true));
-        }
-        dispatch(setIsFetching(false));
-    })
+    let response = await API.me();
+    if (response.resultCode === 0) {
+        let {id, email, login} = response.data;
+        dispatch(setAuthData({id, email, login}, true));
+    }
+    dispatch(setIsFetching(false));
 };
 
-export const Login = ({email, password, rememberMe}) => (dispatch) => {
+
+export const Login = ({email, password, rememberMe}) => async (dispatch) => {
     dispatch(setIsFetching(true));
-    API.login({email, password, rememberMe}).then(response => {
-        if (response.resultCode === 0) {
-            dispatch(authMe())
-        } else dispatch(stopSubmit("authorization", {_error: response.messages[0]}));
+    let response = await API.login({email, password, rememberMe});
+        if (response.resultCode === 0) dispatch(authMe());
+        else dispatch(stopSubmit("authorization", {_error: response.messages[0]}));
         dispatch(setIsFetching(false))
-    })
 };
 
-export const Logout = () => (dispatch) => {
+export const Logout = () => async (dispatch) => {
     dispatch(setIsFetching(true));
-    API.logout().then(response => {
-        if (response.resultCode === 0) {
-            dispatch(setAuthData({id: null, email: null, login: null}, false))
-        }
+    let response = await API.logout();
+        if (response.resultCode === 0) dispatch(setAuthData({id: null, email: null, login: null}, false));
         dispatch(setIsFetching(false))
-    })
 };
 
 export default authReducer;

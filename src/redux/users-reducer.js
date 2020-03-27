@@ -56,44 +56,40 @@ export const setIsFetchingAC = (isFetching) => ({type: IS_FETCHING, isFetching})
 export const isFollowProcessAC = (isInProcess, userId) => ({type: FOLLOW_IN_PROCESS, isInProcess, userId});
 
 export const changePage = (p, pageSize) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(setCurrentPageAC(p));
         dispatch(setIsFetchingAC(true));
-        API.getUsers(p, pageSize).then(response => {
-            dispatch(setUsersAC(response.data.items));
-            dispatch(setIsFetchingAC(false));
-        });
+        let response = await API.getUsers(p, pageSize);
+        dispatch(setUsersAC(response.data.items));
+        dispatch(setIsFetchingAC(false));
     }
 };
 
 export const followUser = (userId) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(isFollowProcessAC(true, userId));
-        API.follow(userId).then(response => {
-            if (response.resultCode === 0) {dispatch(followAC(userId))}
-            dispatch(isFollowProcessAC(false, userId))
-        })
+        let response = await API.follow(userId);
+        if (response.resultCode === 0) {dispatch(followAC(userId))}
+        dispatch(isFollowProcessAC(false, userId))
     }
 };
 
 export const unfollowUser = (userId) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(isFollowProcessAC(true, userId));
-        API.unfollow(userId).then(response => {
-            if (response.resultCode === 0) {dispatch(unfollowAC(userId))}
-            dispatch(isFollowProcessAC(false, userId))
-        })
+        let response = API.unfollow(userId);
+        if (response.resultCode === 0) {dispatch(unfollowAC(userId))}
+        dispatch(isFollowProcessAC(false, userId))
     }
 };
 
 export const requestUsers = (currentPage, pageSize) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(setIsFetchingAC(true));
-        API.getUsers(currentPage, pageSize).then(response => {
-            dispatch(setUsersAC(response.data.items));
-            dispatch(setUsersAmountAC(response.data.totalCount));
-            dispatch(setIsFetchingAC(false))
-        });
+        let response = await API.getUsers(currentPage, pageSize);
+        dispatch(setUsersAC(response.data.items));
+        dispatch(setUsersAmountAC(response.data.totalCount));
+        dispatch(setIsFetchingAC(false))
     }
 };
 

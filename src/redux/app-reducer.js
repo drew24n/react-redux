@@ -15,11 +15,16 @@ const appReducer = (state = initialState, action) => {
 
 export const initializeSuccess = () => ({type: SET_INITIALIZED});
 
-export const initializeApp = () => (dispatch) => {
-    let promise = dispatch(authMe());
-    Promise.all([promise]).then(() => {
-            dispatch(initializeSuccess())
-        })
+// export const initializeApp = () => (dispatch) => {
+//     let promise = dispatch(authMe());
+//     Promise.all([promise]).then(() => {
+//             dispatch(initializeSuccess())
+//         })
+// };
+
+export const initializeApp = () => async (dispatch) => {
+    await dispatch(authMe());
+    dispatch(initializeSuccess())
 };
 
 export default appReducer;

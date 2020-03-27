@@ -1,5 +1,5 @@
 import React from "react";
-import {BrowserRouter, Route} from "react-router-dom";
+import {Route} from "react-router-dom";
 import style from "./app.module.css";
 import Footer from "./Footer/Footer";
 import NavBar from "./NavBar/NavBar";
@@ -18,7 +18,6 @@ class App extends React.Component {
     render() {
         if (!this.props.isInitialized) {return null}
         return (
-            <BrowserRouter>
                 <div className={style.container}>
                     <HeaderContainer/>
                     <Footer/>
@@ -31,7 +30,6 @@ class App extends React.Component {
                         <Route path="/login" render={() => <Login/>}/>
                     </div>
                 </div>
-            </BrowserRouter>
         )
     }
 }

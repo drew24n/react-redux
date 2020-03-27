@@ -20,7 +20,6 @@ const ProfileInfo = React.memo((props) => {
                 {!props.userProfile.contacts.youtube ? "" : <div>Youtube: {props.userProfile.contacts.youtube}</div>}
                 {!props.userProfile.contacts.github ? "" : <div>GitHub: {props.userProfile.contacts.github}</div>}
                 {!props.userProfile.contacts.mainLink ? "" : <div>MainLink: {props.userProfile.contacts.mainLink}</div>}
-                {!props.userProfile.lookingForAJob ? "" : <div>I'm looking for a job</div>}
                 {!props.userProfile.lookingForAJobDescription ? "" : <div>Job description: {props.userProfile.lookingForAJobDescription}</div>}
             </div>
         </div>

@@ -10,7 +10,7 @@ const maxLenght20 = maxLenght(20);
 const MyPosts = (props) => {
     let onAddPost = (value) => props.addPost(value.post);
 
-    let postItem = props.postItems.map(p => <Post post={p.post} likes={p.likes} userPic={props.picture} key={p.id}/>);
+    let postItem = [...props.postItems].reverse().map(p => <Post post={p.post} likes={p.likes} userPic={props.picture} key={p.id}/>);
 
     return (
         <div className={style.container}>
