@@ -34,12 +34,23 @@ export const authMe = () => async (dispatch) => {
 };
 
 
-export const Login = ({email, password, rememberMe}) => async (dispatch) => {
+// export const Login = ({email, password, rememberMe}) => async (dispatch) => {
+//     dispatch(setIsFetching(true));
+//     let response = await API.login({email, password, rememberMe});
+//     if (response.resultCode === 0) {
+//         dispatch(authMe())
+//     } else dispatch(stopSubmit("authorization", {_error: response.messages[0]}));
+//     dispatch(setIsFetching(false))
+// };
+
+export const Login = ({email, password, rememberMe}) => (dispatch) => {
     dispatch(setIsFetching(true));
-    let response = await API.login({email, password, rememberMe});
-        if (response.resultCode === 0) dispatch(authMe());
-        else dispatch(stopSubmit("authorization", {_error: response.messages[0]}));
-        dispatch(setIsFetching(false))
+    API.login({email, password, rememberMe}).then(response => {
+        if (response.resultCode === 0) {
+            dispatch(authMe())
+        } else dispatch(stopSubmit("authorization", {_error: response.messages[0]}));
+    });
+    dispatch(setIsFetching(false))
 };
 
 export const Logout = () => async (dispatch) => {

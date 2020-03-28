@@ -9,7 +9,7 @@ import {Redirect} from "react-router-dom";
 
 const maxLenght25 = maxLenght(25);
 
-const LoginForm = (props) => {
+const LoginForm = React.memo((props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div><Field name={"email"} component={CustomInput} validate={[required, email, maxLenght25]} placeholder={"email"}/></div>
@@ -19,7 +19,7 @@ const LoginForm = (props) => {
             <div><button>Enter</button></div>
         </form>
     )
-};
+});
 
 const LoginReduxForm = reduxForm({
     form: "authorization"

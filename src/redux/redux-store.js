@@ -1,4 +1,4 @@
-import {applyMiddleware, combineReducers, createStore} from "redux";
+import {applyMiddleware, combineReducers, compose, createStore} from "redux";
 import thunk from "redux-thunk";
 import profileReducer from "./profile-reducer";
 import messagesReducer from "./messages-reducer";
@@ -19,7 +19,11 @@ let reducers = combineReducers({
     }
 );
 
-let store = createStore(reducers, applyMiddleware(thunk));
+let store = createStore(reducers, compose(
+    applyMiddleware(thunk),
+    window.devToolsExtension ? window.devToolsExtension() : f => f
+    )
+);
 
 export default store;
 
