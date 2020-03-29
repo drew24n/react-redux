@@ -7,12 +7,15 @@ const GET_USERS_AMOUNT = "GET_USERS_AMOUNT";
 const CURRENT_PAGE = "CURRENT_PAGE";
 const IS_FETCHING = "IS_FETCHING";
 const FOLLOW_IN_PROCESS = "FOLLOW_IN_PROCESS";
+const SET_FRACTION = "setFraction";
 
 let initialState = {
     users: [],
     usersAmount: 0,
-    pageSize: 5,
+    pageSize: 10,
+    fractionSize: 10,
     currentPage: 1,
+    currentFraction: 1,
     isFetching: false,
     isFollowInProcess: [],
 };
@@ -43,6 +46,7 @@ const usersReducer = (state = initialState, action) => {
                 ? [...state.isFollowInProcess, action.userId]
                 : state.isFollowInProcess.filter(id => id !== action.userId)
         };
+        case SET_FRACTION: return {...state, currentFraction: action.currentFraction};
         default: return state
     }
 };
@@ -54,6 +58,7 @@ export const setCurrentPageAC = (currentPage) => ({type: CURRENT_PAGE, currentPa
 export const setUsersAmountAC = (usersAmount) => ({type: GET_USERS_AMOUNT, usersAmount});
 export const setIsFetchingAC = (isFetching) => ({type: IS_FETCHING, isFetching});
 export const isFollowProcessAC = (isInProcess, userId) => ({type: FOLLOW_IN_PROCESS, isInProcess, userId});
+export const setFractionProcessAC = (currentFraction) => ({type: SET_FRACTION, currentFraction});
 
 export const changePage = (p, pageSize) => {
     return async (dispatch) => {

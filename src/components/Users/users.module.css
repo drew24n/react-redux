@@ -4,16 +4,19 @@
 }
 .pagination {
     display: block;
+    width: fit-content;
+    margin: 0 auto 15px auto;
 }
 .item_container {
-    display: flex;
-    justify-content: space-evenly;
-    margin-bottom: 15px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 15px;
+    margin: auto;
 }
 .item {
     display: block;
     border: deepskyblue 2px solid;
-    width: 15%;
+    width: auto;
     padding: 10px;
     background-color: white;
 }
@@ -42,4 +45,8 @@
     color: lawngreen;
     cursor: pointer;
     font-size: 20px;
+}
+.total {
+    font-size: 20px;
+    color: lightsteelblue;
 }

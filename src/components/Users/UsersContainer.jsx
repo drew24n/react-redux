@@ -1,11 +1,20 @@
 import {connect} from "react-redux";
 import Users from "./Users";
-import {changePage, followUser, requestUsers, unfollowUser} from "../../redux/users-reducer";
+import {changePage, followUser, requestUsers, setFractionProcessAC, unfollowUser} from "../../redux/users-reducer";
 import React from "react";
 import Preloader from "../common/Preloader/Preloader";
 import {compose} from "redux";
 import {withAuthRedirect} from "../hoc/withAuthRedirect";
-import {getCurrentPage, getIsAuth, getIsFetching, getIsFollowInProcess, getPageSize, getUsersSelector, getUsersAmount} from "../../redux/selectors/users-selector";
+import {
+    getCurrentPage,
+    getIsAuth,
+    getIsFetching,
+    getIsFollowInProcess,
+    getPageSize,
+    getUsersSelector,
+    getUsersAmount,
+    getCurrentFraction, getFractionSize
+} from "../../redux/selectors/users-selector";
 
 class UsersComponent extends React.Component {
     componentDidMount() {this.props.setUsers(this.props.currentPage, this.props.pageSize)}
@@ -19,7 +28,11 @@ class UsersComponent extends React.Component {
                    currentPage={this.props.currentPage}
                    followUser={this.props.follow}
                    unfollowUser={this.props.unfollow}
-                   isFollowInProcess={this.props.isFollowInProcess}/>
+                   isFollowInProcess={this.props.isFollowInProcess}
+                   changeFraction={this.props.setFraction}
+                   currentFraction={this.props.currentFraction}
+                   fractionSize={this.props.fractionSize}
+            />
         </>
     }
 }
@@ -33,6 +46,8 @@ let mapStateToProps = (state) => {
         isFetching: getIsFetching(state),
         isFollowInProcess: getIsFollowInProcess(state),
         isAuth: getIsAuth(state),
+        currentFraction: getCurrentFraction(state),
+        fractionSize: getFractionSize(state),
     }
 };
 
@@ -42,6 +57,7 @@ let mapDispatchToProps = (dispatch) => {
         unfollow: (userId) => dispatch(unfollowUser(userId)),
         setUsers: (currentPage, pageSize) => dispatch(requestUsers(currentPage, pageSize)),
         setCurrentPage: (p, pageSize) => dispatch(changePage(p, pageSize)),
+        setFraction: (currentFraction) => dispatch(setFractionProcessAC(currentFraction))
     }
 };
 
