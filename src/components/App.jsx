@@ -1,16 +1,17 @@
-import React from "react";
+import React, {lazy} from "react";
 import {BrowserRouter, Route} from "react-router-dom";
 import style from "./app.module.css";
 import Footer from "./Footer/Footer";
 import NavBar from "./NavBar/NavBar";
 import Settings from "./Settings/Settings";
 import MessagesContainer from "./Messages/MessagesContainer";
-import UsersContainer from "./Users/UsersContainer";
 import ProfileContainer from "./Profile/ProfileContainer";
 import HeaderContainer from "./Header/HeaderContainer";
 import Login from "./LoginPage/LoginPage";
 import {connect} from "react-redux";
 import {initializeApp} from "../redux/app-reducer";
+import {withLazyLoading} from "./hoc/withLazyLoading";
+const UsersContainer = lazy(() => import("./Users/UsersContainer"));
 
 class App extends React.Component {
     componentDidMount() {this.props.initialize()}
@@ -27,8 +28,8 @@ class App extends React.Component {
                         <Route path="/profile/:usersId?" render={() => <ProfileContainer/>}/>
                         <Route path="/messages" render={() => <MessagesContainer/>}/>
                         <Route path="/settings" render={() => <Settings/>}/>
-                        <Route path="/users" render={() => <UsersContainer/>}/>
                         <Route path="/login" render={() => <Login/>}/>
+                        <Route path="/users" render={withLazyLoading(UsersContainer)}/>
                     </div>
                 </div>
             </BrowserRouter>

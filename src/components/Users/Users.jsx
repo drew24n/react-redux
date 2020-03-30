@@ -12,8 +12,8 @@ let Users = (props) => {
     for (let i = 1; i <= pagesAmount; i++) {pages.push(i)}
 
     let fractionsAmount = Math.ceil(pagesAmount / props.fractionSize);
-    let leftFractionEdge = (props.currentFraction - 1) * props.fractionSize + 1;
-    let rightFractionEdge = props.currentFraction * props.fractionSize;
+    let fractionLeftEnd = (props.currentFraction - 1) * props.fractionSize + 1;
+    let fractionRightEnd = props.currentFraction * props.fractionSize;
 
     return (
         <div className={style.container}>
@@ -21,7 +21,7 @@ let Users = (props) => {
                 <Pagination.First onClick={() => props.changeFraction(1)}/>
                 <Pagination.Prev className={props.currentFraction <= 1 && "disabled"}
                                  onClick={() => props.changeFraction(props.currentFraction - 1)}/>
-                {pages.filter(p => p >= leftFractionEdge && p <= rightFractionEdge)
+                {pages.filter(p => p >= fractionLeftEnd && p <= fractionRightEnd)
                 .map(p => <PageItem key={p} className={props.currentPage === p && "active"}
                                 onClick={() => props.changePage(p, props.pageSize)}>{p}</PageItem>)}
                 <Pagination.Next className={props.currentFraction >= fractionsAmount && "disabled"}

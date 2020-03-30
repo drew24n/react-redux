@@ -13,7 +13,8 @@ import {
     getPageSize,
     getUsersSelector,
     getUsersAmount,
-    getCurrentFraction, getFractionSize
+    getCurrentFraction,
+    getFractionSize
 } from "../../redux/selectors/users-selector";
 
 class UsersComponent extends React.Component {
