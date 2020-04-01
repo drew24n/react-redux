@@ -48,7 +48,7 @@ export const Login = ({email, password, rememberMe}) => (dispatch) => {
     API.login({email, password, rememberMe}).then(response => {
         if (response.resultCode === 0) {
             dispatch(authMe())
-        } else dispatch(stopSubmit("authorization", {_error: response.messages[0]}));
+        } else dispatch(stopSubmit("profileInfo", {_error: response.messages[0]}));
     });
     dispatch(setIsFetching(false))
 };

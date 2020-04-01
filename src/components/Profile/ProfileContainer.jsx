@@ -1,7 +1,7 @@
 import React from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import {getProfile, getStatus, updateStatus} from "../../redux/profile-reducer";
+import {editMode, getProfile, getStatus, updateProfileInfo, updateStatus} from "../../redux/profile-reducer";
 import Preloader from "../common/Preloader/Preloader";
 import {withRouter} from "react-router-dom";
 import {compose} from "redux";
@@ -27,6 +27,7 @@ let mapStateToProps = (state) => ({
     userProfile: state.profile.userProfile,
     isFetching: state.profile.isFetching,
     status: state.profile.status,
+    profileEditStatus: state.profile.profileEditStatus,
     isAuth: state.auth.isAuth,
     myId: state.auth.id,
 });
@@ -34,7 +35,9 @@ let mapStateToProps = (state) => ({
 let mapDispatchToProps = (dispatch) => ({
     getUserProfile: (usersId) => dispatch(getProfile(usersId)),
     getUserStatus: (usersId) => dispatch(getStatus(usersId)),
-    updateUserStatus: (status) => dispatch(updateStatus(status))
+    updateUserStatus: (status) => dispatch(updateStatus(status)),
+    updateProfile: (info) => dispatch(updateProfileInfo(info)),
+    profileEditMode: (value) => dispatch(editMode(value)),
 });
 
 export default compose(

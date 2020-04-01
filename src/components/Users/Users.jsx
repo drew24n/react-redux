@@ -2,8 +2,7 @@ import React from "react";
 import style from "./users.module.css";
 import defaultProfilePicture from  "../../assets/images/default_user_pic.png"
 import {NavLink} from "react-router-dom";
-import Pagination from "react-bootstrap/Pagination";
-import PageItem from 'react-bootstrap/PageItem'
+import {Pagination, PageItem} from "react-bootstrap";
 
 let Users = (props) => {
 
