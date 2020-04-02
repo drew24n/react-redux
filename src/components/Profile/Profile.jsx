@@ -8,7 +8,7 @@ const Profile = (props) => {
         <div className={style.container}>
             <ProfileInfo userProfile={props.userProfile} status={props.status} updateStatus={props.updateUserStatus}
                          myId={props.myId} updateProfile={props.updateProfile} profileEditMode={props.profileEditMode}
-                         profileEditStatus={props.profileEditStatus}/>
+                         profileEditStatus={props.profileEditStatus} saveProfilePhoto={props.saveProfilePhoto}/>
             <MyPostsContainer userPic={props.userProfile.photos}/>
         </div>
     )

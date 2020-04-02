@@ -8,7 +8,7 @@ import {maxLenght} from "../../../validators/validators";
 
 const maxLenght25 = maxLenght(25);
 
-const ProfileInfo = ({userProfile, status, updateStatus, myId, updateProfile, profileEditMode, profileEditStatus}) => {
+const ProfileInfo = ({userProfile, status, updateStatus, myId, updateProfile, profileEditMode, profileEditStatus, saveProfilePhoto}) => {
 
     // let [editMode, setIsEdit] = useState(false);
     // const activateEditMode = () => setIsEdit(true);
@@ -17,9 +17,19 @@ const ProfileInfo = ({userProfile, status, updateStatus, myId, updateProfile, pr
     //     updateProfile(value).then(() => setIsEdit(false))
     // };
 
+    const onPhotoSelected = (e) => {
+        if (e.target.files.length) {
+            saveProfilePhoto(e.target.files[0])
+        }
+    };
+
     return (
         <div className={style.container}>
-            <img className={style.img} src={!userProfile.photos.small ? defaultProfilePicture : userProfile.photos.small} alt=""/>
+            <div>
+                <img className={style.img}
+                     src={!userProfile.photos.small ? defaultProfilePicture : userProfile.photos.small} alt=""/>
+                <input onChange={onPhotoSelected} type={"file"}/>
+            </div>
             <div className={style.description}>
                 <ProfileStatusWithHooks status={status} updateStatus={updateStatus} myId={myId}/>
                 {profileEditStatus

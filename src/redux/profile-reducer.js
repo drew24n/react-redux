@@ -8,6 +8,7 @@ const SET_STATUS = "SET_STATUS";
 const CHANGE_STATUS = "CHANGE_STATUS";
 const SET_PROFILE_INFO = "SET_PROFILE_INFO";
 const EDIT_MODE = "EDIT_MODE";
+const SET_PROFILE_PHOTO = "SET_PROFILE_PHOTO";
 
 let initialState = {
         userProfile: {
@@ -35,6 +36,7 @@ const profileReducer = (state = initialState, action) => {
         case SET_STATUS: return {...state, status: action.status};
         case SET_PROFILE_INFO: return {...state, userProfile: action.info};
         case EDIT_MODE: return {...state, profileEditStatus: action.value};
+        case SET_PROFILE_PHOTO: return {...state, userProfile: {...state.userProfile, photos: action.photo}};
         default: return state;
     }
 };
@@ -46,6 +48,7 @@ export const changeStatus = (status) => ({type: CHANGE_STATUS, status});
 export const setStatus = (status) => ({type: SET_STATUS, status});
 export const setProfileInfo = (info) => ({type: SET_PROFILE_INFO, info});
 export const editMode = (value) => ({type: EDIT_MODE, value});
+export const savePhotoSuccess = (photo) => ({type: SET_PROFILE_PHOTO, photo});
 
 export const getProfile = (usersId) => {
     return async (dispatch) => {
@@ -88,7 +91,7 @@ export const getStatus = (userId) => {
 // };
 
 export const updateProfileInfo = (info) => {
-    return  (dispatch, getState) => {
+    return (dispatch, getState) => {
         const user_id = getState().auth.id;
         API.updateProfileInfo(info).then(response => {
             if (response.data.resultCode === 0) {
@@ -101,6 +104,15 @@ export const updateProfileInfo = (info) => {
                 // return Promise.reject(response.data.messages[0])
             }
         });
+    }
+};
+
+export const savePhoto = (photo) => {
+    return async (dispatch) => {
+        const response = await API.uploadPhoto(photo);
+        if (response.data.resultCode === 0) {
+            dispatch(savePhotoSuccess(response.data.data.photos))
+        }
     }
 };
 
