@@ -3,6 +3,7 @@ import {stopSubmit} from "redux-form";
 
 const AUTH_DATA = "AUTH_DATA";
 const IS_FETCHING = "IS_FETCHING";
+const GET_CAPTCHA = "GET_CAPTCHA";
 
 let initialState = {
     id: null,
@@ -10,18 +11,21 @@ let initialState = {
     login: null,
     isAuth: false,
     isFetching: false,
+    captcha: null,
 };
 
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case AUTH_DATA: return {...state, ...action.data, isAuth: action.isAuth};
         case IS_FETCHING: return {...state, isFetching: action.isFetching};
+        case GET_CAPTCHA: return {...state, captcha: action.captcha};
         default: return state;
     }
 };
 
 export const setAuthData = ({id, email, login}, isAuth) => ({type: AUTH_DATA, data: {id, email, login}, isAuth});
 export const setIsFetching = (isFetching) => ({type: IS_FETCHING, isFetching});
+export const setCaptcha = (captcha) => ({type: GET_CAPTCHA, captcha});
 
 export const authMe = () => async (dispatch) => {
     dispatch(setIsFetching(true));
@@ -43,12 +47,16 @@ export const authMe = () => async (dispatch) => {
 //     dispatch(setIsFetching(false))
 // };
 
-export const Login = ({email, password, rememberMe}) => (dispatch) => {
+export const Login = ({email, password, rememberMe, captcha}) => (dispatch) => {
     dispatch(setIsFetching(true));
-    API.login({email, password, rememberMe}).then(response => {
+    API.login({email, password, rememberMe, captcha}).then(response => {
         if (response.resultCode === 0) {
             dispatch(authMe())
-        } else dispatch(stopSubmit("profileInfo", {_error: response.messages[0]}));
+        } else if (response.resultCode === 10) {
+            API.getCaptcha().then(response => dispatch(setCaptcha(response.data.url)));
+            dispatch(stopSubmit("authorization", {_error: response.messages[0]}))
+        }
+        else dispatch(stopSubmit("authorization", {_error: response.messages[0]}));
     });
     dispatch(setIsFetching(false))
 };

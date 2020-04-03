@@ -14,12 +14,13 @@ export const API = {
     getUsers(currentPage, pageSize) {return instance.get(`users?page=${currentPage}&count=${pageSize}`)},
     getStatus(userId) {return instance.get(`profile/status/` + userId)},
     updateStatus(status) {return instance.put(`profile/status`, {status: status})},
-    login({email, password, rememberMe}) {return instance.post(`/auth/login`, {email, password, rememberMe}).then(response => response.data)},
+    login({email, password, rememberMe, captcha}) {return instance.post(`/auth/login`, {email, password, rememberMe, captcha}).then(response => response.data)},
     logout() {return instance.delete(`auth/login`).then(response => response.data)},
     updateProfileInfo(info) {return instance.put(`profile`, info)},
     uploadPhoto(photo) {
         const formData = new FormData();
         formData.append("image", photo);
         return instance.put(`profile/photo`, formData, {headers: {"Content-Type": "multipart/form-data"}})
-    }
+    },
+    getCaptcha() {return instance.get(`security/get-captcha-url`)}
 };

@@ -14,9 +14,10 @@ const LoginForm = (props) => {
         <form onSubmit={props.handleSubmit}>
             <div><Field name={"email"} component={CustomInput} validate={[required, email, maxLenght25]} placeholder={"email"}/></div>
             <div><Field name={"password"} component={CustomInput} validate={[required, maxLenght25]} type={"password"} placeholder={"password"}/></div>
-            <div className={style.common_error}>{props.error}</div>
             <div><Field name={"rememberMe"} component={"input"} type={"checkbox"}/>Remember me</div>
+            <div className={style.common_error}>{props.error}</div>
             <div><button>Enter</button></div>
+            {props.captcha && <div><Field name={"captcha"} placeholder={"captcha"} component={CustomInput}/></div>}
         </form>
     )
 };
@@ -34,13 +35,15 @@ const LoginPage = (props) => {
     return (
         <div className={style.container}>
             <h1>Login</h1>
-            <LoginReduxForm onSubmit={userLogin}/>
+            <LoginReduxForm onSubmit={userLogin} captcha={props.captcha}/>
+            {props.captcha && <img src={props.captcha} alt={"captcha"}/>}
         </div>
     )
 };
 
 const mapStateToProps = (state) => ({
     isAuth: state.auth.isAuth,
+    captcha: state.auth.captcha
 });
 
 export default connect(mapStateToProps, {Login})(LoginPage);
