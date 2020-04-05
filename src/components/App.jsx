@@ -1,5 +1,5 @@
 import React, {lazy} from "react";
-import {BrowserRouter, Route} from "react-router-dom";
+import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 import style from "./app.module.css";
 import Footer from "./Footer/Footer";
 import NavBar from "./NavBar/NavBar";
@@ -11,25 +11,42 @@ import Login from "./LoginPage/LoginPage";
 import {connect} from "react-redux";
 import {initializeApp} from "../redux/app-reducer";
 import {withLazyLoading} from "./hoc/withLazyLoading";
+import classNames from "classnames";
 const UsersContainer = lazy(() => import("./Users/UsersContainer"));
 
 class App extends React.Component {
-    componentDidMount() {this.props.initialize()}
+    catchAllUnhandledErrors = (reason, promise) => {
+        alert("Some error occurred")
+    };
+
+    componentDidMount() {
+        this.props.initialize();
+        window.addEventListener("unhandledrejection", this.catchAllUnhandledErrors)
+    }
+
+    componentWillUnmount() {
+        this.props.initialize();
+        window.removeEventListener("unhandledrejection", this.catchAllUnhandledErrors)
+    }
 
     render() {
         if (!this.props.isInitialized) {return null}
         return (
             <BrowserRouter>
-                <div className={style.container}>
+                <div className={classNames(style.container, style.global)}>
                     <HeaderContainer/>
                     <Footer/>
                     <NavBar/>
                     <div className={style.content}>
-                        <Route path="/profile/:usersId?" render={() => <ProfileContainer/>}/>
-                        <Route path="/messages" render={() => <MessagesContainer/>}/>
-                        <Route path="/settings" render={() => <Settings/>}/>
-                        <Route path="/login" render={() => <Login/>}/>
-                        <Route path="/users" render={withLazyLoading(UsersContainer)}/>
+                        <Switch>
+                            <Route exact path="/" render={() => <Redirect to={"/profile"}/>}/>
+                            <Route path="/profile/:usersId?" render={() => <ProfileContainer/>}/>
+                            <Route path="/messages" render={() => <MessagesContainer/>}/>
+                            <Route path="/settings" render={() => <Settings/>}/>
+                            <Route path="/login" render={() => <Login/>}/>
+                            <Route path="/users" render={withLazyLoading(UsersContainer)}/>
+                            <Route render={() => <div>404 Not Found</div>}/>
+                        </Switch>
                     </div>
                 </div>
             </BrowserRouter>
