@@ -1,0 +1,59 @@
+import axios from "axios";
+
+const instance = axios.create({
+    withCredentials: true,
+    baseURL: "https://social-network.samuraijs.com/api/1.0/",
+    headers: {"API-KEY": "b7bce098-5291-4b73-9757-8bd9fdc7b010"}
+});
+
+export const apiAuth = {
+    me() {
+        return instance.get(`auth/me`).then(response => response.data)
+    },
+    login({email, password, rememberMe, captcha}) {
+        return instance.post(`auth/login`, {email, password, rememberMe, captcha})
+            .then(response => response.data)
+    },
+    logout() {
+        return instance.delete(`auth/login`).then(response => response.data)
+    },
+};
+
+export const apiSecurity = {
+    getCaptcha() {
+        return instance.get(`security/get-captcha-url`).then(response => response.data.url)
+    }
+};
+
+export const apiUsers = {
+    getUsers(pageNumber, pageSize) {
+        return instance.get(`users?page=${pageNumber}&count=${pageSize}`).then(response => response.data)
+    },
+    follow(userId) {
+        return instance.post(`follow/${userId}`, {}).then(response => response.data)
+    },
+    unfollow(userId) {
+        return instance.delete((`follow/${userId}`)).then(response => response.data)
+    }
+};
+
+export const apiProfile = {
+    getProfile(usersId) {
+        return instance.get(`profile/${usersId}`).then(response => response.data)
+    },
+    getStatus(userId) {
+        return instance.get(`profile/status/${userId}`)
+    },
+    updateStatus(status) {
+        return instance.put(`profile/status`, {status}).then(response => response.data)
+    },
+    updateProfileInfo(data) {
+        return instance.put(`profile`, data).then(response => response.data)
+    },
+    updateProfilePhoto(photo) {
+        const formData = new FormData();
+        formData.append("image", photo);
+        return instance.put(`profile/photo`, formData, {headers: {"Content-Type": "multipart/form-data"}})
+            .then(response => response.data)
+    }
+};
