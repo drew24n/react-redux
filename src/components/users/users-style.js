@@ -8,8 +8,6 @@ export const Container = styled.main`
     min-width: 235px;
     max-width: 235px;
     min-height: 235px;
-    max-height: 235px;
-    overflow-y: auto;
   };
   .card-img-top {
     width: 125px;

@@ -38,7 +38,8 @@ const mapStateToProps = (state) => ({
     profile: state.profile.profile,
     status: state.profile.status,
     profileEditMode: state.profile.profileEditMode,
-    isAuthorized: state.auth.isAuthorized
+    isAuthorized: state.auth.isAuthorized,
+    profileEditInProcess: state.profile.profileEditInProcess
 });
 
 const mapDispatchToProps = (dispatch) => ({

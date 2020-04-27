@@ -1,7 +1,7 @@
 import React from "react";
 import {Container} from "./profile-style";
 import ProfileStatus from "./profile-status/profile-status";
-import {Button, Image, ListGroup} from "react-bootstrap";
+import {Button, Image, ListGroup, OverlayTrigger, Spinner, Tooltip} from "react-bootstrap";
 import img from "../../assets/images/default-user-picture.png";
 import {reduxForm, Field} from "redux-form";
 import {Input} from "../common/forms/forms";
@@ -22,17 +22,24 @@ const Profile = (props) => {
     return (
         <Container className={"d-flex flex-wrap flex-column justify-content-center align-items-center"}>
             <ListGroup>
-                <label htmlFor={"custom-photo-input"} className={"profile-photo-label d-flex align-self-center"}>
-                    <Image className={"rounded-circle profile-photo"}
-                           src={props.profile.photos.large !== null ? props.profile.photos.large : img}/>
-                    {props.isOwner &&
-                    <input type={"file"} onChange={onPhotoSelected} id={"custom-photo-input"}/>}
-                </label>
-                <ProfileStatus status={props.status} updateStatus={props.updateStatus} isOwner={props.isOwner}/>
-                {props.profileEditMode === false && props.isOwner &&
-                <Button className={"d-flex align-self-center shadow-none edit-profile-btn mb-3"} variant={"primary"}
-                        onClick={() => props.setProfileEditMode(true)}>Edit profile</Button>
+                {props.isOwner === true
+                    ? <OverlayTrigger key={"bottom"} placement={"bottom"} overlay={
+                        <Tooltip id={"tooltip-bottom"}>
+                            click to update photo!
+                        </Tooltip>
+                    }>
+                        <label htmlFor={"custom-photo-input"}
+                               className={"profile-photo-label d-flex align-self-center"}>
+                            <Image className={"rounded-circle profile-photo"}
+                                   src={props.profile.photos.large !== null ? props.profile.photos.large : img}/>
+                            {props.isOwner &&
+                            <input type={"file"} onChange={onPhotoSelected} id={"custom-photo-input"}/>}
+                        </label>
+                    </OverlayTrigger>
+                    : <Image className={"rounded-circle profile-photo m-auto"}
+                             src={props.profile.photos.large !== null ? props.profile.photos.large : img}/>
                 }
+                <ProfileStatus status={props.status} updateStatus={props.updateStatus} isOwner={props.isOwner}/>
             </ListGroup>
             <ListGroup className={"d-flex flex-wrap flex-row text-center justify-content-center"}>
                 {props.profileEditMode === false &&
@@ -43,8 +50,8 @@ const Profile = (props) => {
                     {props.profile.aboutMe !== null &&
                     <ListGroup.Item variant="info">About me: {props.profile.aboutMe}</ListGroup.Item>}
                     {props.profile.lookingForAJob === true &&
-                    <ListGroup.Item variant="info">Looking for a job <span role={"img"}
-                                                                           aria-label="">&#9989;</span></ListGroup.Item>}
+                    <ListGroup.Item variant="info">Looking for a job <span role={"img"} aria-label="">&#9989;</span>
+                    </ListGroup.Item>}
                     {props.profile.lookingForAJobDescription !== null &&
                     <ListGroup.Item variant="info">Job
                         description: {props.profile.lookingForAJobDescription}</ListGroup.Item>}
@@ -59,8 +66,14 @@ const Profile = (props) => {
                             <Contacts key={key} contactName={key} contactValue={props.profile.contacts[key]}/>)
                         }</>
                     : <ProfileReduxForm initialValues={props.profile} onSubmit={props.updateProfileInfo}
-                                        profile={props.profile} setProfileEditMode={props.setProfileEditMode}/>
+                                        profile={props.profile} setProfileEditMode={props.setProfileEditMode}
+                                        profileEditInProcess={props.profileEditInProcess}/>
                 }
+            </ListGroup>
+            <ListGroup>{props.profileEditMode === false && props.isOwner &&
+            <Button className={"d-flex align-self-center shadow-none edit-profile-btn"} variant={"primary"}
+                    onClick={() => props.setProfileEditMode(true)}>Edit profile
+            </Button>}
             </ListGroup>
         </Container>
     );
@@ -82,8 +95,11 @@ const EditProfileInfo = (props) => {
                                   validate={[maxLength25]}/>
                 </ListGroup.Item>
                 <ListGroup.Item>
-                    <Form.Check as={Field} name={"lookingForAJob"} component={"input"} type={"checkbox"}
-                                label={"Looking for a job"}/></ListGroup.Item>
+                    <label className="checkbox-label" htmlFor="default-checkbox">Looking for a job
+                        <Field type="checkbox" id="default-checkbox" name="lookingForAJob" component={"input"}/>
+                        <span className="custom-checkbox"/>
+                    </label>
+                </ListGroup.Item>
                 <ListGroup.Item>Job description:
                     <Form.Control as={Field} component={Input} name={"lookingForAJobDescription"}
                                   validate={[maxLength25]}/>
@@ -97,11 +113,20 @@ const EditProfileInfo = (props) => {
                                       validate={[maxLength25]}/>
                     </ListGroup.Item>)}
             </ListGroup>
+            {props.error &&
+            <ListGroup className={"d-flex flex-wrap flex-row text-center justify-content-center w-100"}>
+                <ListGroup.Item className={"response-error text-center mb-3"}>Error: {props.error}</ListGroup.Item>
+            </ListGroup>
+            }
             <ListGroup className={"d-flex flex-wrap flex-row text-center justify-content-center"}>
-                <Button as={"button"} className={"shadow-none text-center save-btn"}>Save changes</Button>
+                <Button as={"button"} className={"shadow-none text-center save-btn"}
+                        disabled={props.profileEditInProcess}>Save changes
+                    {props.profileEditInProcess === true &&
+                    <Spinner className={"ml-1"} as="span" animation="border" size="sm" role="status"
+                             aria-hidden="true"/>}
+                </Button>
                 <Button onClick={() => props.setProfileEditMode(false)}
                         className={"text-center cancel-btn"}>Cancel</Button>
-                <div>{props.error}</div>
             </ListGroup>
         </Form>
     )

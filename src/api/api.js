@@ -57,3 +57,14 @@ export const apiProfile = {
             .then(response => response.data)
     }
 };
+
+/*register new user api is not used due to CORS policy
+
+export const register = (payload) => {
+    const formData = new FormData();
+    Object.keys(payload).map(key => formData.append("JoinModel." + key, payload[key]));
+    return axios.post(`https://social-network.samuraijs.com/Auth/Auth/TryRegister`, formData,
+        {headers: {"Content-Type": "application/x-www-form-urlencoded"}})
+};
+
+ */

@@ -5,7 +5,7 @@ export const Container = styled.main`
   align-self: center;
   justify-self: center;
   .auth-form {width: 200px};
-  .server-error {"color": "#00FF00"};
+  .response-error {color: #00FF00};
 `;
 
 export const Captcha = styled.img`

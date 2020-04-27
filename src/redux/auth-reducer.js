@@ -1,10 +1,9 @@
 import {apiAuth, apiSecurity} from "../api/api";
-import {stopSubmit} from "redux-form";
-import {setIsFetching} from "./app-reducer";
+import {SubmissionError} from "redux-form";
+import {setErrorMessage, setIsFetching} from "./app-reducer";
 
 const SET_AUTH_DATA = "SET_AUTH_DATA";
 const SET_CAPTCHA = "SET_CAPTCHA";
-const REMOVE_CAPTCHA = "REMOVE_CAPTCHA";
 
 const initialState = {
     id: null,
@@ -21,8 +20,6 @@ const authReducer = (state = initialState, action) => {
             return {...state, ...action.payload, isAuthorized: action.isAuthorized};
         case SET_CAPTCHA:
             return {...state, captcha: action.captcha};
-        case REMOVE_CAPTCHA:
-            return {...state, captcha: action.captcha};
         default:
             return state
     }
@@ -34,13 +31,14 @@ export const setAuthData = ({id, login, email}, isAuthorized) => ({
     isAuthorized
 });
 export const setCaptcha = (captcha) => ({type: SET_CAPTCHA, captcha});
-export const removeCaptcha = (captcha) => ({type: REMOVE_CAPTCHA, captcha});
 
 export const authMe = () => async (dispatch) => {
     let response = await apiAuth.me();
     if (response.resultCode === 0) {
         let {id, email, login} = response.data;
         dispatch(setAuthData({id, email, login}, true))
+    } else {
+        dispatch(setErrorMessage("an error occurred during user identification"))
     }
 };
 
@@ -49,15 +47,14 @@ export const login = ({email, password, rememberMe, captcha}) => async (dispatch
     let response = await apiAuth.login({email, password, rememberMe, captcha});
     if (response.resultCode === 0) {
         await dispatch(authMe());
-        dispatch(removeCaptcha(null))
+        dispatch(setCaptcha(null))
+    } else if (response.resultCode === 10) {
+        let captcha = await apiSecurity.getCaptcha();
+        dispatch(setCaptcha(captcha))
     } else {
-        if (response.resultCode === 10) {
-            let captcha = await apiSecurity.getCaptcha();
-            dispatch(setCaptcha(captcha))
-        }
+        let message = response.messages.length > 0 ? response.messages[0] : "unknown error occurred";
+        throw new SubmissionError({_error: message})
     }
-    let message = response.messages.length > 0 ? response.messages[0] : "an error occurred";
-    dispatch(stopSubmit("authorization", {_error: message}));
     dispatch(setIsFetching(false))
 };
 
@@ -66,9 +63,11 @@ export const logout = () => async (dispatch) => {
     let response = await apiAuth.logout();
     if (response.resultCode === 0) {
         dispatch(setAuthData({id: null, email: null, login: null}, false));
-        dispatch(removeCaptcha(null))
+        dispatch(setCaptcha(null))
+    } else {
+        dispatch(setErrorMessage("an error occurred during logout"))
     }
     dispatch(setIsFetching(false))
 };
 
-export default authReducer
+export default authReducer;

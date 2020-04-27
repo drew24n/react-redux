@@ -9,4 +9,5 @@ export const Content = styled.div`
   color: #fff;
   font-size: 50px;
   text-align: center;
+  cursor: default;
 `;

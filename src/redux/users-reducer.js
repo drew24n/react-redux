@@ -1,5 +1,5 @@
 import {apiUsers} from "../api/api";
-import {setIsFetching} from "./app-reducer";
+import {setErrorMessage, setIsFetching} from "./app-reducer";
 
 const SET_USERS = "SET_USERS";
 const SET_PAGE_NUMBER = "SET_PAGE_NUMBER";
@@ -66,9 +66,13 @@ export const setIsFollowing = (isFollowInProcess, userId) => ({type: SET_IS_FOLL
 
 export const getUsers = (pageNumber, pageSize) => async (dispatch) => {
     dispatch(setIsFetching(true));
-    let response = await apiUsers.getUsers(pageNumber, pageSize);
-    dispatch(setUsers(response.items));
-    dispatch(setUsersCount(response.totalCount));
+    try {
+        let response = await apiUsers.getUsers(pageNumber, pageSize);
+        dispatch(setUsers(response.items));
+        dispatch(setUsersCount(response.totalCount))
+    } catch (e) {
+        dispatch(setErrorMessage("an error occurred while loading users"))
+    }
     dispatch(setIsFetching(false))
 };
 
@@ -81,6 +85,8 @@ export const setFollow = (userId) => async (dispatch) => {
     let response = await apiUsers.follow(userId);
     if (response.resultCode === 0) {
         dispatch(follow(userId))
+    } else {
+        dispatch(setErrorMessage("an error occurred while following user"))
     }
     dispatch(setIsFollowing(false, userId))
 };
@@ -90,6 +96,8 @@ export const setUnfollow = (userId) => async (dispatch) => {
     let response = await apiUsers.unfollow(userId);
     if (response.resultCode === 0) {
         dispatch(unfollow(userId))
+    } else {
+        dispatch(setErrorMessage("an error occurred while unfollowing user"))
     }
     dispatch(setIsFollowing(false, userId))
 };

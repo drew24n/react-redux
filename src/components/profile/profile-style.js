@@ -14,11 +14,7 @@ export const Container = styled.main`
   .profile-photo-label {
     width: fit-content;
     cursor: pointer;
-    transition: all 0.3s ease;
   };
-  .profile-photo-label:hover {
-    transform: scale(1.1);
-  }
   .list-group-item {
     cursor: default;
     margin: 10px;
@@ -40,6 +36,7 @@ export const Container = styled.main`
   };
   .edit-profile-btn {
     width: fit-content;
+    margin-top: 10px;
   };
   .group-title {
     color: #fff;
@@ -47,10 +44,34 @@ export const Container = styled.main`
     width: 100%;
   };
   .cancel-btn {
-    width: 121.28px;
+    width: 141.28px;
     margin: 10px;
   };
   .save-btn {
+    width: 141.28px;
     margin: 10px;
-  }
+  };
+  .response-error {
+    color: #00FF00;
+  };
+  #default-checkbox {
+    display: none;
+  };
+  .checkbox-label {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  };
+  .custom-checkbox {
+    display: inline-flex;
+    margin-left: 10px;
+    width: 20px;
+    height: 20px;
+    border: 1px solid steelblue;
+    box-sizing: border-box;
+    transition: all 0.5s ease;
+  };
+  #default-checkbox:checked ~ .custom-checkbox {background-color: steelblue};
 `;

@@ -33,7 +33,7 @@ const Header = (props) => {
                         ?
                         <Nav className={"ml-auto"}>
                             <Nav.Item className={"text-info d-flex align-items-center justify-content-center " +
-                            "text-right ml-2 mr-2"}>Welcome, {props.login}</Nav.Item>
+                            "text-right ml-2 mr-2 welcome"}>Welcome, {props.login}</Nav.Item>
                             <Nav.Link as={NavLink} active={false} className={"m-auto"} to={"/"} href={"/"}>
                                 <Button onClick={props.logout} className={"shadow-none"}
                                         variant={"success"}>Logout</Button>

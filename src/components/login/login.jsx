@@ -46,7 +46,7 @@ const LoginForm = (props) => {
                     <Form.Control as={Field} name={"captcha"} component={Input} type={"input"} placeholder={"captcha"}/>
                 </>}
             </Form.Group>
-            {props.error && <div className={"server-error text-center mb-3"}>{props.error}</div>}
+            {props.error && <div className={"response-error text-center mb-3"}>{props.error}</div>}
             <Button variant={"primary"} type={"input"} className={"d-block m-auto shadow-none"}>Enter</Button>
         </Form>
     )
