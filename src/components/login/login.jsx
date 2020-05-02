@@ -24,7 +24,7 @@ const maxLength25 = maxLength(25);
 
 const LoginForm = (props) => {
     return (
-        <Form onSubmit={props.handleSubmit} className={"auth-form"}>
+        <Form onSubmit={props.handleSubmit}>
             <Form.Group className={"text-center text-white"}>
                 <Form.Label>Email address</Form.Label>
                 <Form.Control as={Field} name={"email"} component={Input} type={"input"}
@@ -44,7 +44,8 @@ const LoginForm = (props) => {
                 <>
                     <Captcha src={props.captcha} className={"mb-3"}/>
                     <Form.Control as={Field} name={"captcha"} component={Input} type={"input"} placeholder={"captcha"}/>
-                </>}
+                </>
+                }
             </Form.Group>
             {props.error && <div className={"response-error text-center mb-3"}>{props.error}</div>}
             <Button variant={"primary"} type={"input"} className={"d-block m-auto shadow-none"}>Enter</Button>

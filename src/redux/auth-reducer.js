@@ -37,6 +37,8 @@ export const authMe = () => async (dispatch) => {
     if (response.resultCode === 0) {
         let {id, email, login} = response.data;
         dispatch(setAuthData({id, email, login}, true))
+    } else if (response.resultCode === 1) {
+        console.log("not authorized")
     } else {
         dispatch(setErrorMessage("an error occurred during user identification"))
     }

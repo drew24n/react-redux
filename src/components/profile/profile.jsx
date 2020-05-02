@@ -1,5 +1,5 @@
 import React from "react";
-import {Container} from "./profile-style";
+import {Container, CustomJobCheckbox, CustomPhotoInput} from "./profile-style";
 import ProfileStatus from "./profile-status/profile-status";
 import {Button, Image, ListGroup, OverlayTrigger, Spinner, Tooltip} from "react-bootstrap";
 import img from "../../assets/images/default-user-picture.png";
@@ -24,17 +24,15 @@ const Profile = (props) => {
             <ListGroup>
                 {props.isOwner === true
                     ? <OverlayTrigger key={"bottom"} placement={"bottom"} overlay={
-                        <Tooltip id={"tooltip-bottom"}>
-                            click to update photo!
-                        </Tooltip>
-                    }>
-                        <label htmlFor={"custom-photo-input"}
-                               className={"profile-photo-label d-flex align-self-center"}>
+                        <Tooltip id={"tooltip-bottom"}>click to update photo!</Tooltip>}>
+                        <CustomPhotoInput htmlFor={"custom-photo-input"}
+                               className={"d-flex align-self-center"}>
                             <Image className={"rounded-circle profile-photo"}
                                    src={props.profile.photos.large !== null ? props.profile.photos.large : img}/>
                             {props.isOwner &&
-                            <input type={"file"} onChange={onPhotoSelected} id={"custom-photo-input"}/>}
-                        </label>
+                            <input type={"file"} onChange={onPhotoSelected} id={"custom-photo-input"}/>
+                            }
+                        </CustomPhotoInput>
                     </OverlayTrigger>
                     : <Image className={"rounded-circle profile-photo m-auto"}
                              src={props.profile.photos.large !== null ? props.profile.photos.large : img}/>
@@ -64,7 +62,8 @@ const Profile = (props) => {
                         <div className={"group-title"}>Contacts:</div>
                         {Object.keys(props.profile.contacts).map(key =>
                             <Contacts key={key} contactName={key} contactValue={props.profile.contacts[key]}/>)
-                        }</>
+                        }
+                    </>
                     : <ProfileReduxForm initialValues={props.profile} onSubmit={props.updateProfileInfo}
                                         profile={props.profile} setProfileEditMode={props.setProfileEditMode}
                                         profileEditInProcess={props.profileEditInProcess}/>
@@ -95,10 +94,10 @@ const EditProfileInfo = (props) => {
                                   validate={[maxLength25]}/>
                 </ListGroup.Item>
                 <ListGroup.Item>
-                    <label className="checkbox-label" htmlFor="default-checkbox">Looking for a job
+                    <CustomJobCheckbox htmlFor="default-checkbox">Looking for a job
                         <Field type="checkbox" id="default-checkbox" name="lookingForAJob" component={"input"}/>
-                        <span className="custom-checkbox"/>
-                    </label>
+                        <span/>
+                    </CustomJobCheckbox>
                 </ListGroup.Item>
                 <ListGroup.Item>Job description:
                     <Form.Control as={Field} component={Input} name={"lookingForAJobDescription"}
@@ -111,7 +110,8 @@ const EditProfileInfo = (props) => {
                     <ListGroup.Item key={key}>{key}:
                         <Form.Control as={Field} name={"contacts." + key} placeholder={key} component={Input}
                                       validate={[maxLength25]}/>
-                    </ListGroup.Item>)}
+                    </ListGroup.Item>)
+                }
             </ListGroup>
             {props.error &&
             <ListGroup className={"d-flex flex-wrap flex-row text-center justify-content-center w-100"}>
@@ -123,7 +123,8 @@ const EditProfileInfo = (props) => {
                         disabled={props.profileEditInProcess}>Save changes
                     {props.profileEditInProcess === true &&
                     <Spinner className={"ml-1"} as="span" animation="border" size="sm" role="status"
-                             aria-hidden="true"/>}
+                             aria-hidden="true"/>
+                    }
                 </Button>
                 <Button onClick={() => props.setProfileEditMode(false)}
                         className={"text-center cancel-btn"}>Cancel</Button>

@@ -4,8 +4,12 @@ export const Container = styled.main`
   grid-area: main;
   align-self: center;
   justify-self: center;
-  .auth-form {width: 200px};
-  .response-error {color: #00FF00};
+  form {
+    width: 200px;
+  }
+  .response-error {
+    color: #00FF00;
+  }
 `;
 
 export const Captcha = styled.img`

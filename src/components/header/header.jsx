@@ -2,7 +2,7 @@ import React from "react";
 import {NavLink} from "react-router-dom";
 import {connect} from "react-redux";
 import {Button, Nav, Navbar} from "react-bootstrap";
-import {Container, LogoImg} from "./header-style";
+import {Container} from "./header-style";
 import logo from "../../assets/images/logo192.png";
 import {logout} from "../../redux/auth-reducer";
 import Preloader from "../common/preloader/preloader";
@@ -15,7 +15,7 @@ const Header = (props) => {
             <Navbar fixed={"top"} expand={"md"} bg={"dark"} variant={"dark"} collapseOnSelect>
                 <Navbar.Brand className={"p-0"}>
                     <Nav.Link className={"p-0"} as={NavLink} active={false} exact to={"/"} href={"/"}>
-                        <LogoImg src={logo} alt={"Logo"}/>
+                        <img src={logo} alt={"Logo"}/>
                     </Nav.Link>
                 </Navbar.Brand>
                 <Navbar.Brand className={"ml-3 brand-title"}>Social Network</Navbar.Brand>
@@ -30,8 +30,7 @@ const Header = (props) => {
                                   href={"/users"}>Users</Nav.Link>
                     </Nav>
                     {props.isAuthorized === true
-                        ?
-                        <Nav className={"ml-auto"}>
+                        ? <Nav className={"ml-auto"}>
                             <Nav.Item className={"text-info d-flex align-items-center justify-content-center " +
                             "text-right ml-2 mr-2 welcome"}>Welcome, {props.login}</Nav.Item>
                             <Nav.Link as={NavLink} active={false} className={"m-auto"} to={"/"} href={"/"}>
@@ -39,8 +38,7 @@ const Header = (props) => {
                                         variant={"success"}>Logout</Button>
                             </Nav.Link>
                         </Nav>
-                        :
-                        <Nav className={"ml-auto"}>
+                        : <Nav className={"ml-auto"}>
                             <Nav.Item className={"text-danger d-flex align-items-center justify-content-center " +
                             "ml-2 mr-2 not-authorized"}>Not Authorized!</Nav.Item>
                             <Nav.Link as={NavLink} active={false} className={"m-auto"} to={"/login"} href={"/login"}>

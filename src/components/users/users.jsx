@@ -18,7 +18,7 @@ const Users = (props) => {
             <CardDeck className={"d-flex flex-wrap justify-content-center mr-3 ml-3 mt-2"}>
                 {props.users.map(user =>
                     <Card key={user.id} border={"primary"} className={"mr-2 ml-2 mt-2 mb-2"}>
-                        <NavLink to={`/profile/${user.id}`} className={"m-auto router-nav-link"}>
+                        <NavLink to={`/profile/${user.id}`} className={"m-auto"}>
                             <Card.Img className={"mt-1 mb-1"} variant="top" src={
                                 user.photos.large === null ? defaultPhoto : user.photos.large}/>
                         </NavLink>
