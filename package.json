@@ -2,7 +2,7 @@
   "name": "social",
   "version": "1.0.0",
   "private": true,
-  "homepage": "https://drew24n.github.io/react-redux",
+  "homepage": "https://drew24n.github.io/react-redux-social",
   "dependencies": {
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
