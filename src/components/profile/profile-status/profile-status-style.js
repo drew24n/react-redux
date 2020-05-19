@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components"
 
 export const Container = styled.div`
   grid-area: main;
@@ -6,10 +6,10 @@ export const Container = styled.div`
     color: #fff;
     font-size: 24px;
     cursor: default;
-  };
+  }
   .status-owner {
     color: #fff;
     font-size: 24px;
     cursor: pointer;
-  };
-`;
+  }
+`

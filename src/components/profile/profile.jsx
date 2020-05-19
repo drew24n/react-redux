@@ -1,23 +1,23 @@
-import React from "react";
-import {Container, CustomJobCheckbox, CustomPhotoInput} from "./profile-style";
-import ProfileStatus from "./profile-status/profile-status";
-import {Button, Image, ListGroup, OverlayTrigger, Spinner, Tooltip} from "react-bootstrap";
-import img from "../../assets/images/default-user-picture.png";
-import {reduxForm, Field} from "redux-form";
-import {Input} from "../common/forms/forms";
-import {maxLength} from "../common/forms/forms-validators";
-import {Form} from "react-bootstrap";
+import React from "react"
+import {Container, CustomJobCheckbox, CustomPhotoInput} from "./profile-style"
+import ProfileStatus from "./profile-status/profile-status"
+import {Button, Image, ListGroup, OverlayTrigger, Spinner, Tooltip} from "react-bootstrap"
+import img from "../../assets/images/default-user-picture.png"
+import {reduxForm, Field} from "redux-form"
+import {Input} from "../common/forms/forms"
+import {maxLength} from "../common/forms/forms-validators"
+import {Form} from "react-bootstrap"
 
 const Profile = (props) => {
     const onPhotoSelected = (e) => {
         if (e.target.files.length) {
             props.updateProfilePhoto(e.target.files[0])
         }
-    };
+    }
 
     const Contacts = ({contactName, contactValue}) => contactValue
         ? <ListGroup.Item variant="info">{contactName}: {contactValue}</ListGroup.Item>
-        : null;
+        : null
 
     return (
         <Container className={"d-flex flex-wrap flex-column justify-content-center align-items-center"}>
@@ -75,10 +75,10 @@ const Profile = (props) => {
             </Button>}
             </ListGroup>
         </Container>
-    );
-};
+    )
+}
 
-const maxLength25 = maxLength(25);
+const maxLength25 = maxLength(25)
 
 const EditProfileInfo = (props) => {
     return (
@@ -131,10 +131,10 @@ const EditProfileInfo = (props) => {
             </ListGroup>
         </Form>
     )
-};
+}
 
 const ProfileReduxForm = reduxForm({
     form: "profileInfo"
-})(EditProfileInfo);
+})(EditProfileInfo)
 
-export default Profile;
+export default Profile

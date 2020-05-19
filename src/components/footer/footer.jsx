@@ -1,8 +1,8 @@
-import React from "react";
-import {Container, Copyright, ScrollUp} from "./footer-style";
+import React from "react"
+import {Container, Copyright, ScrollUp} from "./footer-style"
 
 const Footer = () => {
-    const scrollUp = () => window.scrollTo({top: 0, behavior: "smooth"});
+    const scrollUp = () => window.scrollTo({top: 0, behavior: "smooth"})
 
     return (
         <Container>
@@ -10,6 +10,6 @@ const Footer = () => {
             <Copyright>Copyright © 2020</Copyright>
         </Container>
     )
-};
+}
 
-export default Footer;
+export default Footer

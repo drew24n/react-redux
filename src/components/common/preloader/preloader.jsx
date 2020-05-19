@@ -1,5 +1,5 @@
-import React from "react";
-import {Container, Spinner} from "./preloader-style";
+import React from "react"
+import {Container, Spinner} from "./preloader-style"
 
 const Preloader = () => {
     return (
@@ -7,6 +7,6 @@ const Preloader = () => {
             <Spinner/>
         </Container>
     )
-};
+}
 
-export default Preloader;
+export default Preloader

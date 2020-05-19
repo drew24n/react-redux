@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components"
 
 export const Container = styled.div`
   display: grid;
@@ -6,4 +6,4 @@ export const Container = styled.div`
   grid-template-rows: 72px 1fr 72px;
   background-color: #708090;
   min-height: 100vh;
-`;
+`

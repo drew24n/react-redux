@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components"
 
 export const Container = styled.main`
   grid-area: main;
@@ -20,4 +20,4 @@ export const Container = styled.main`
   .card.nav-link {
     width: fit-content;
   }
-`;
+`

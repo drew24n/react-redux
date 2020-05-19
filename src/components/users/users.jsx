@@ -1,17 +1,17 @@
-import React from "react";
-import {NavLink} from "react-router-dom";
-import {Container} from "./users-style";
-import {Button, Card, CardDeck, Pagination, Spinner} from "react-bootstrap";
-import defaultPhoto from "../../assets/images/default-user-picture.png";
+import React from "react"
+import {NavLink} from "react-router-dom"
+import {Container} from "./users-style"
+import {Button, Card, CardDeck, Pagination, Spinner} from "react-bootstrap"
+import defaultPhoto from "../../assets/images/default-user-picture.png"
 
 const Users = (props) => {
-    let pagesAmount = Math.ceil(props.usersCount / props.pageSize);
-    let pages = [];
-    for (let i = 1; pagesAmount >= i; i++) pages.push(i);
+    let pagesAmount = Math.ceil(props.usersCount / props.pageSize)
+    let pages = []
+    for (let i = 1; pagesAmount >= i; i++) pages.push(i)
 
-    let portionsAmount = Math.ceil(pagesAmount / props.portionSize);
-    let portionRangeStart = (props.portionNumber - 1) * props.portionSize + 1;
-    let portionRangeEnd = props.portionNumber * props.portionSize;
+    let portionsAmount = Math.ceil(pagesAmount / props.portionSize)
+    let portionRangeStart = (props.portionNumber - 1) * props.portionSize + 1
+    let portionRangeEnd = props.portionNumber * props.portionSize
 
     return (
         <Container>
@@ -62,6 +62,6 @@ const Users = (props) => {
             </Pagination>
         </Container>
     )
-};
+}
 
-export default Users;
+export default Users

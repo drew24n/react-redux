@@ -1,22 +1,22 @@
-import React, {memo, useEffect, useState} from "react";
-import {Container} from "./profile-status-style";
-import {compose} from "redux";
-import {OverlayTrigger, Tooltip} from "react-bootstrap";
+import React, {memo, useEffect, useState} from "react"
+import {Container} from "./profile-status-style"
+import {compose} from "redux"
+import {OverlayTrigger, Tooltip} from "react-bootstrap"
 
 const ProfileStatus = (props) => {
-    let [editMode, setEditMode] = useState(false);
-    let [status, setStatus] = useState(props.status);
+    let [editMode, setEditMode] = useState(false)
+    let [status, setStatus] = useState(props.status)
 
     useEffect(() => {
-        setStatus(props.status);
-    }, [props.status]);
+        setStatus(props.status)
+    }, [props.status])
 
-    const activateEditMode = () => setEditMode(true);
+    const activateEditMode = () => setEditMode(true)
     const deactivateEditMode = () => {
-        setEditMode(false);
+        setEditMode(false)
         props.updateStatus(status)
-    };
-    const onStatusChange = (e) => setStatus(e.currentTarget.value);
+    }
+    const onStatusChange = (e) => setStatus(e.currentTarget.value)
 
     return (
         <Container>
@@ -40,6 +40,6 @@ const ProfileStatus = (props) => {
             </div>
         </Container>
     )
-};
+}
 
-export default compose(memo)(ProfileStatus);
+export default compose(memo)(ProfileStatus)

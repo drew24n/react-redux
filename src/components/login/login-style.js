@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components"
 
 export const Container = styled.main`
   grid-area: main;
@@ -10,9 +10,9 @@ export const Container = styled.main`
   .response-error {
     color: #00FF00;
   }
-`;
+`
 
 export const Captcha = styled.img`
   width: 200px;
   height: 70px;
-`;
+`

@@ -1,10 +1,10 @@
-import React from "react";
-import {Button, Modal} from "react-bootstrap";
-import {connect} from "react-redux";
-import {setErrorMessage} from "../../../redux/app-reducer";
+import React from "react"
+import {Button, Modal} from "react-bootstrap"
+import {connect} from "react-redux"
+import {setErrorMessage} from "../../../redux/app-reducer"
 
 const Error = (props) => {
-    const setErrorMessage = () => props.setErrorMessage(null);
+    const setErrorMessage = () => props.setErrorMessage(null)
 
     return (
         <Modal show={props.error !== null} onHide={setErrorMessage} centered>
@@ -16,15 +16,15 @@ const Error = (props) => {
                 <Button variant="primary" onClick={setErrorMessage}>Close</Button>
             </Modal.Footer>
         </Modal>
-    );
-};
+    )
+}
 
 const mapStateToProps = (state) => ({
     error: state.app.error
-});
+})
 
 const mapDispatchToProps = (dispatch) => ({
     setErrorMessage: (error) => dispatch(setErrorMessage(error))
-});
+})
 
-export default connect(mapStateToProps, mapDispatchToProps)(Error);
+export default connect(mapStateToProps, mapDispatchToProps)(Error)

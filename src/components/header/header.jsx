@@ -1,14 +1,14 @@
-import React from "react";
-import {NavLink} from "react-router-dom";
-import {connect} from "react-redux";
-import {Button, Nav, Navbar} from "react-bootstrap";
-import {Container} from "./header-style";
-import logo from "../../assets/images/logo192.png";
-import {logout} from "../../redux/auth-reducer";
-import Preloader from "../common/preloader/preloader";
+import React from "react"
+import {NavLink} from "react-router-dom"
+import {connect} from "react-redux"
+import {Button, Nav, Navbar} from "react-bootstrap"
+import {Container} from "./header-style"
+import logo from "../../assets/images/logo192.png"
+import {logout} from "../../redux/auth-reducer"
+import Preloader from "../common/preloader/preloader"
 
 const Header = (props) => {
-    if (props.isFetching === true) return <Preloader/>;
+    if (props.isFetching === true) return <Preloader/>
 
     return (
         <Container>
@@ -50,16 +50,16 @@ const Header = (props) => {
             </Navbar>
         </Container>
     )
-};
+}
 
 const mapStateToProps = (state) => ({
     isAuthorized: state.auth.isAuthorized,
     login: state.auth.login,
     isFetching: state.auth.isFetching
-});
+})
 
 const mapDispatchToProps = (dispatch) => ({
     logout: () => dispatch(logout())
-});
+})
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header)

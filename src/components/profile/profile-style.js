@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components"
 
 export const Container = styled.main`
   grid-area: main;
@@ -37,7 +37,7 @@ export const Container = styled.main`
   .response-error {
     color: #00FF00;
   }
-`;
+`
 
 export const CustomJobCheckbox = styled.label`
   display: flex;
@@ -58,7 +58,7 @@ export const CustomJobCheckbox = styled.label`
     transition: all 0.5s ease;
   }
   #default-checkbox:checked + span {background-color: steelblue};
-`;
+`
 
 export const CustomPhotoInput = styled.label`
   input {
@@ -68,4 +68,4 @@ export const CustomPhotoInput = styled.label`
     width: fit-content;
     cursor: pointer;
   }
-`;
+`

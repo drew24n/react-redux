@@ -1,8 +1,8 @@
-import styled from "styled-components";
+import styled from "styled-components"
 
 export const Container = styled.footer`
   grid-area: footer;
-`;
+`
 
 export const ScrollUp = styled.div`
   display: flex;
@@ -22,7 +22,7 @@ export const ScrollUp = styled.div`
   &:hover {
     background-color: rgba(135, 206, 235, 0.5);
   }
-`;
+`
 
 export const Copyright = styled.div`
   display: flex;
@@ -32,4 +32,4 @@ export const Copyright = styled.div`
   height: 72px;
   color: #fff;
   background-color: #343a40;
-`;
+`

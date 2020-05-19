@@ -1,10 +1,10 @@
-import axios from "axios";
+import axios from "axios"
 
 const instance = axios.create({
     withCredentials: true,
     baseURL: "https://social-network.samuraijs.com/api/1.0/",
     headers: {"API-KEY": "b7bce098-5291-4b73-9757-8bd9fdc7b010"}
-});
+})
 
 export const apiAuth = {
     me() {
@@ -17,13 +17,13 @@ export const apiAuth = {
     logout() {
         return instance.delete(`auth/login`).then(response => response.data)
     },
-};
+}
 
 export const apiSecurity = {
     getCaptcha() {
         return instance.get(`security/get-captcha-url`).then(response => response.data.url)
     }
-};
+}
 
 export const apiUsers = {
     getUsers(pageNumber, pageSize) {
@@ -35,7 +35,7 @@ export const apiUsers = {
     unfollow(userId) {
         return instance.delete((`follow/${userId}`)).then(response => response.data)
     }
-};
+}
 
 export const apiProfile = {
     getProfile(usersId) {
@@ -56,15 +56,15 @@ export const apiProfile = {
         return instance.put(`profile/photo`, formData, {headers: {"Content-Type": "multipart/form-data"}})
             .then(response => response.data)
     }
-};
+}
 
 /*register new user api is not used due to CORS policy
 
 export const register = (payload) => {
-    const formData = new FormData();
-    Object.keys(payload).map(key => formData.append("JoinModel." + key, payload[key]));
+    const formData = new FormData()
+    Object.keys(payload).map(key => formData.append("JoinModel." + key, payload[key]))
     return axios.post(`https://social-network.samuraijs.com/Auth/Auth/TryRegister`, formData,
         {headers: {"Content-Type": "application/x-www-form-urlencoded"}})
-};
+}
 
  */

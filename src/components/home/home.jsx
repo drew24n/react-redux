@@ -1,5 +1,5 @@
-import React from "react";
-import {Container, Content} from "./home-style";
+import React from "react"
+import {Container, Content} from "./home-style"
 
 const Home = () => {
     return (
@@ -7,6 +7,6 @@ const Home = () => {
             <Content>Home</Content>
         </Container>
     )
-};
+}
 
-export default Home;
+export default Home

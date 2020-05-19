@@ -2,7 +2,7 @@
   "name": "social",
   "version": "1.0.0",
   "private": true,
-  "homepage": "https://drew24n.github.io/react-redux-social",
+  "homepage": "https://drew24n.github.io/react-redux/",
   "dependencies": {
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
@@ -38,6 +38,7 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^2.2.0"
+    "gh-pages": "^2.2.0",
+    "redux-devtools-extension": "^2.13.8"
   }
 }

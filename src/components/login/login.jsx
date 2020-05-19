@@ -1,26 +1,26 @@
-import React from "react";
-import {Field, reduxForm} from "redux-form";
-import {connect} from "react-redux";
-import {Redirect} from "react-router-dom";
-import {Button, Form} from "react-bootstrap";
-import {Input} from "../common/forms/forms";
-import {login} from "../../redux/auth-reducer";
-import {Container, Captcha} from "./login-style";
-import {email, maxLength, required} from "../common/forms/forms-validators";
+import React from "react"
+import {Field, reduxForm} from "redux-form"
+import {connect} from "react-redux"
+import {Redirect} from "react-router-dom"
+import {Button, Form} from "react-bootstrap"
+import {Input} from "../common/forms/forms"
+import {login} from "../../redux/auth-reducer"
+import {Container, Captcha} from "./login-style"
+import {email, maxLength, required} from "../common/forms/forms-validators"
 
 const Login = (props) => {
-    let login = (payload) => props.login(payload);
+    let login = (payload) => props.login(payload)
 
-    if (props.isAuthorized === true) return <Redirect to={"/profile"}/>;
+    if (props.isAuthorized === true) return <Redirect to={"/profile"}/>
 
     return (
         <Container>
             <LoginReduxForm onSubmit={login} captcha={props.captcha}/>
         </Container>
     )
-};
+}
 
-const maxLength25 = maxLength(25);
+const maxLength25 = maxLength(25)
 
 const LoginForm = (props) => {
     return (
@@ -51,20 +51,21 @@ const LoginForm = (props) => {
             <Button variant={"primary"} type={"input"} className={"d-block m-auto shadow-none"}>Enter</Button>
         </Form>
     )
-};
+}
 
 const LoginReduxForm = reduxForm({
-    form: "authorization"
-})(LoginForm);
+    form: "authorization",
+    touchOnBlur: false
+})(LoginForm)
 
 const mapStateToProps = (state) => ({
     isAuthorized: state.auth.isAuthorized,
     captcha: state.auth.captcha,
     isFetching: state.app.isFetching
-});
+})
 
 const mapDispatchToProps = (dispatch) => ({
     login: (payload) => dispatch(login(payload))
-});
+})
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

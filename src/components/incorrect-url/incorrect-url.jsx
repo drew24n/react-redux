@@ -1,5 +1,5 @@
-import React from "react";
-import {Container, Content} from "./incorrect-url-style";
+import React from "react"
+import {Container, Content} from "./incorrect-url-style"
 
 const IncorrectUrl = () => {
     return (
@@ -7,6 +7,6 @@ const IncorrectUrl = () => {
             <Content>Page not found. Error 404</Content>
         </Container>
     )
-};
+}
 
-export default IncorrectUrl;
+export default IncorrectUrl

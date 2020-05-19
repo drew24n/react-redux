@@ -1,5 +1,5 @@
-import React from "react";
-import {Container} from "../forms/forms-style";
+import React from "react"
+import {Container} from "./forms-style"
 
 export const Input = ({input, meta, ...props}) => {
     return (
@@ -9,4 +9,4 @@ export const Input = ({input, meta, ...props}) => {
                 <div>{meta.error}</div> : null}
         </Container>
     )
-};
+}
