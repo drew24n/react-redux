@@ -3,6 +3,7 @@ import {NavLink} from "react-router-dom"
 import {Container} from "./users-style"
 import {Button, Card, CardDeck, Pagination, Spinner} from "react-bootstrap"
 import defaultPhoto from "../../assets/images/default-user-picture.png"
+import SearchUsers from "./search-users/search-users"
 
 const Users = (props) => {
     let pagesAmount = Math.ceil(props.usersCount / props.pageSize)
@@ -15,6 +16,10 @@ const Users = (props) => {
 
     return (
         <Container>
+            <SearchUsers friends={props.friends} getUsers={props.getUsers}
+                         pageNumber={props.pageNumber} pageSize={props.pageSize} term={props.term}
+                         setSearchTerm={props.setSearchTerm} getPageNumber={props.getPageNumber}
+                         getFriends={props.getFriends}/>
             <CardDeck className={"d-flex flex-wrap justify-content-center mr-3 ml-3 mt-2"}>
                 {props.users.map(user =>
                     <Card key={user.id} border={"primary"} className={"mr-2 ml-2 mt-2 mb-2"}>

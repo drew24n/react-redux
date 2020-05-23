@@ -22,8 +22,8 @@ const Header = (props) => {
                 <Navbar.Toggle className={"ml-3"} aria-controls={"basic-navbar-nav"}/>
                 <Navbar.Collapse id={"basic-navbar-nav"} data-toggle={"collapse"}>
                     <Nav className={"mr-auto text-center"}>
-                        <Nav.Link as={NavLink} active={false} className={"ml-3 mr-3"} exact to={"/"}
-                                  href={"/"}>Home</Nav.Link>
+                        {/*<Nav.Link as={NavLink} active={false} className={"ml-3 mr-3"} exact to={"/"}*/}
+                        {/*          href={"/"}>Home</Nav.Link>*/}
                         <Nav.Link as={NavLink} active={false} className={"ml-3 mr-3"} to={"/profile"}
                                   href={"/profile"}>Profile</Nav.Link>
                         <Nav.Link as={NavLink} active={false} className={"ml-3 mr-3"} to={"/users"}
@@ -33,7 +33,7 @@ const Header = (props) => {
                         ? <Nav className={"ml-auto"}>
                             <Nav.Item className={"text-info d-flex align-items-center justify-content-center " +
                             "text-right ml-2 mr-2 welcome"}>Welcome, {props.login}</Nav.Item>
-                            <Nav.Link as={NavLink} active={false} className={"m-auto"} to={"/"} href={"/"}>
+                            <Nav.Link as={NavLink} active={false} className={"m-auto"} to={"/"} /*href={"/"}*/>
                                 <Button onClick={props.logout} className={"shadow-none"}
                                         variant={"success"}>Logout</Button>
                             </Nav.Link>

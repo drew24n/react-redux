@@ -9,13 +9,16 @@ export const Container = styled.main`
     height: 150px;
   }
   .list-group-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: default;
     margin: 10px;
     width: 300px;
   }
   .form-control {
-    width: 250px;
-    margin: 0 auto;
+    width: 175px;
+    margin-left: 5px;
   }
   .edit-profile-btn {
     width: fit-content;
@@ -45,6 +48,7 @@ export const CustomJobCheckbox = styled.label`
   align-items: center;
   cursor: pointer;
   height: 100%;
+  margin-bottom: 0;
   #default-checkbox {
     display: none;
   }

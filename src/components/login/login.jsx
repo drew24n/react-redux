@@ -3,10 +3,10 @@ import {Field, reduxForm} from "redux-form"
 import {connect} from "react-redux"
 import {Redirect} from "react-router-dom"
 import {Button, Form} from "react-bootstrap"
-import {Input} from "../common/forms/forms"
+import {Input} from "../common/forms/input"
 import {login} from "../../redux/auth-reducer"
 import {Container, Captcha} from "./login-style"
-import {email, maxLength, required} from "../common/forms/forms-validators"
+import {email, maxLength, required} from "../common/forms/validators"
 
 const Login = (props) => {
     let login = (payload) => props.login(payload)

@@ -2,6 +2,7 @@ import styled from "styled-components"
 
 export const Container = styled.footer`
   grid-area: footer;
+  z-index: 9998;
 `
 
 export const ScrollUp = styled.div`
@@ -9,7 +10,7 @@ export const ScrollUp = styled.div`
   justify-content: center;
   align-items: center;
   position: fixed;
-  left: 16px;
+  right: 16px;
   bottom: 16px;
   height: 40px;
   width: 40px;

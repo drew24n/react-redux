@@ -6,6 +6,9 @@ export const Container = styled.main`
   .page-link {
     box-shadow: none
   }
+  .card-deck {
+    margin-top: 64px !important;
+  }
   .card {
     min-width: 235px;
     max-width: 235px;

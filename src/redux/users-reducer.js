@@ -5,9 +5,11 @@ const SET_USERS = "SET_USERS"
 const SET_PAGE_NUMBER = "SET_PAGE_NUMBER"
 const SET_PORTION_NUMBER = "SET_PORTION_NUMBER"
 const SET_USERS_COUNT = "SET_USERS_COUNT"
+const SET_FRIENDS = "SET_FRIENDS"
 const FOLLOW = "FOLLOW"
 const UNFOLLOW = "UNFOLLOW"
 const SET_IS_FOLLOWING = "SET_IS_FOLLOWING"
+const SET_SEARCH_TERM = "SET_SEARCH_TERM"
 
 const initialState = {
     users: [],
@@ -16,6 +18,8 @@ const initialState = {
     pageNumber: 1,
     portionSize: 10,
     portionNumber: 1,
+    friends: [],
+    term: "",
     isFollowInProcess: []
 }
 
@@ -29,6 +33,10 @@ const usersReducer = (state = initialState, action) => {
             return {...state, portionNumber: action.portionNumber}
         case SET_USERS_COUNT:
             return {...state, usersCount: action.usersCount}
+        case SET_FRIENDS:
+            return {...state, friends: action.friends}
+        case SET_SEARCH_TERM:
+            return {...state, term: action.term}
         case FOLLOW:
             return {
                 ...state, users: state.users.map(user => {
@@ -63,11 +71,17 @@ export const setUsersCount = (usersCount) => ({type: SET_USERS_COUNT, usersCount
 export const follow = (userId) => ({type: FOLLOW, userId})
 export const unfollow = (userId) => ({type: UNFOLLOW, userId})
 export const setIsFollowing = (isFollowInProcess, userId) => ({type: SET_IS_FOLLOWING, isFollowInProcess, userId})
+export const setFriends = (friends) => ({type: SET_FRIENDS, friends})
+export const setSearchTerm = (term) => ({type: SET_SEARCH_TERM, term})
 
-export const getUsers = (pageNumber, pageSize) => async (dispatch) => {
+export const getUsers = (pageNumber = 1, pageSize, isFriend, term) => async (dispatch, getState) => {
     dispatch(setIsFetching(true))
     try {
-        let response = await apiUsers.getUsers(pageNumber, pageSize)
+        if (term) {
+            dispatch(setSearchTerm(term))
+        }
+        let searchTerm = getState().users.term
+        let response = await apiUsers.getUsers(pageNumber, pageSize, isFriend = false, searchTerm)
         dispatch(setUsers(response.items))
         dispatch(setUsersCount(response.totalCount))
     } catch (e) {
@@ -76,8 +90,13 @@ export const getUsers = (pageNumber, pageSize) => async (dispatch) => {
     dispatch(setIsFetching(false))
 }
 
-export const getPageNumber = (pageNumber) => (dispatch) => {
-    dispatch(setPageNumber(pageNumber))
+export const getFriends = () => async (dispatch) => {
+    try {
+        let response = await apiUsers.getUsers(1, 100, true, "")
+        dispatch(setFriends(response.items))
+    } catch (e) {
+        dispatch(setErrorMessage("an error occurred while loading friends list"))
+    }
 }
 
 export const setFollow = (userId) => async (dispatch) => {
@@ -85,6 +104,7 @@ export const setFollow = (userId) => async (dispatch) => {
     let response = await apiUsers.follow(userId)
     if (response.resultCode === 0) {
         dispatch(follow(userId))
+        dispatch(getFriends())
     } else {
         dispatch(setErrorMessage("an error occurred while following user"))
     }
@@ -96,6 +116,7 @@ export const setUnfollow = (userId) => async (dispatch) => {
     let response = await apiUsers.unfollow(userId)
     if (response.resultCode === 0) {
         dispatch(unfollow(userId))
+        dispatch(getFriends())
     } else {
         dispatch(setErrorMessage("an error occurred while unfollowing user"))
     }

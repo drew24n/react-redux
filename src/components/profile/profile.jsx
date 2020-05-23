@@ -4,8 +4,8 @@ import ProfileStatus from "./profile-status/profile-status"
 import {Button, Image, ListGroup, OverlayTrigger, Spinner, Tooltip} from "react-bootstrap"
 import img from "../../assets/images/default-user-picture.png"
 import {reduxForm, Field} from "redux-form"
-import {Input} from "../common/forms/forms"
-import {maxLength} from "../common/forms/forms-validators"
+import {Input} from "../common/forms/input"
+import {maxLength} from "../common/forms/validators"
 import {Form} from "react-bootstrap"
 
 const Profile = (props) => {
@@ -48,7 +48,7 @@ const Profile = (props) => {
                     {props.profile.aboutMe !== null &&
                     <ListGroup.Item variant="info">About me: {props.profile.aboutMe}</ListGroup.Item>}
                     {props.profile.lookingForAJob === true &&
-                    <ListGroup.Item variant="info">Looking for a job <span role={"img"} aria-label="">&#9989;</span>
+                    <ListGroup.Item variant="info">Looking for a job:<span role={"img"} aria-label="">&#9989;</span>
                     </ListGroup.Item>}
                     {props.profile.lookingForAJobDescription !== null &&
                     <ListGroup.Item variant="info">Job
@@ -99,7 +99,7 @@ const EditProfileInfo = (props) => {
                         <span/>
                     </CustomJobCheckbox>
                 </ListGroup.Item>
-                <ListGroup.Item>Job description:
+                <ListGroup.Item>Job desc.:
                     <Form.Control as={Field} component={Input} name={"lookingForAJobDescription"}
                                   validate={[maxLength25]}/>
                 </ListGroup.Item>

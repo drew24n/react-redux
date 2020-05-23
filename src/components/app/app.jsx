@@ -1,5 +1,5 @@
 import React, {useEffect} from "react"
-import {BrowserRouter, Route, Switch} from "react-router-dom"
+import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom"
 import {connect} from "react-redux"
 import "bootstrap/dist/css/bootstrap.css"
 import {Container} from "./app-style"
@@ -7,7 +7,7 @@ import {initializeApp, setErrorMessage, setIsFetching} from "../../redux/app-red
 import Header from "../header/header"
 import IncorrectUrl from "../incorrect-url/incorrect-url"
 import Login from "../login/login"
-import Home from "../home/home"
+// import Home from "../home/home"
 import Footer from "../footer/footer"
 import Preloader from "../common/preloader/preloader"
 import Error from "../common/error-modal/error-modal"
@@ -38,13 +38,13 @@ const App = (props) => {
             <BrowserRouter basename={process.env.PUBLIC_URL}>
                 <Header/>
                 <Switch>
-                    {/*<Route exact path={"/"} render={() => <Redirect to={"/profile"}/>}/>*/}
+                    <Route exact path={"/"} render={() => <Redirect to={"/profile"}/>}/>
                     <Route path={"/login"} render={() => <Login/>}/>
                     <Route path={"/profile/:userId?"} render={() => <ProfileContainer/>}/>
                     <Route path={"/users"} render={() => <UsersContainer/>}/>
                     {/*<Route path={"/profile/:userId?"} render={withSuspense(ProfileContainer)}/>*/}
                     {/*<Route path={"/users"} render={withSuspense(UsersContainer)}/>*/}
-                    <Route exact path={"/"} render={() => <Home/>}/>
+                    {/*<Route exact path={"/"} render={() => <Home/>}/>*/}
                     <Route render={() => <IncorrectUrl/>}/>
                 </Switch>
                 <Footer/>

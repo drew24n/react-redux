@@ -3,8 +3,15 @@ import {compose} from "redux"
 import {connect} from "react-redux"
 import {withAuthRedirect} from "../../hoc/with-auth-redirect"
 import Users from "./users"
-import {getUsers, setFollow, setPortionNumber, setUnfollow} from "../../redux/users-reducer"
-import {getPageNumber} from "../../redux/users-reducer"
+import {
+    getUsers,
+    setFollow,
+    getFriends,
+    setPortionNumber,
+    setUnfollow,
+    setSearchTerm,
+    setPageNumber
+} from "../../redux/users-reducer"
 import Preloader from "../common/preloader/preloader"
 
 const UsersContainer = (props) => {
@@ -12,6 +19,11 @@ const UsersContainer = (props) => {
         const getUsers = props.getUsers
         getUsers(props.pageNumber, props.pageSize)
     }, [props.getUsers, props.pageNumber, props.pageSize])
+
+    useEffect(() => {
+        const getFriends = props.getFriends
+        getFriends()
+    }, [props.getFriends])
 
     if (props.isFetching === true) {
         return <Preloader/>
@@ -29,15 +41,19 @@ const mapStateToProps = (state) => ({
     usersCount: state.users.usersCount,
     isFollowInProcess: state.users.isFollowInProcess,
     isFetching: state.app.isFetching,
-    users: state.users.users
+    users: state.users.users,
+    friends: state.users.friends,
+    term: state.users.term
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    getUsers: (pageNumber, pageSize) => dispatch(getUsers(pageNumber, pageSize)),
-    getPageNumber: (pageNumber, pageSize) => dispatch(getPageNumber(pageNumber, pageSize)),
+    getUsers: (pageNumber, pageSize, isFriend, term) => dispatch(getUsers(pageNumber, pageSize, isFriend, term)),
+    getPageNumber: (pageNumber) => dispatch(setPageNumber(pageNumber)),
     setPortionNumber: (portionNumber) => dispatch(setPortionNumber(portionNumber)),
     follow: (userId) => dispatch(setFollow(userId)),
-    unfollow: (userId) => dispatch(setUnfollow(userId))
+    unfollow: (userId) => dispatch(setUnfollow(userId)),
+    getFriends: (pageNumber, pageSize, isFriend) => dispatch(getFriends(pageNumber, pageSize, isFriend)),
+    setSearchTerm: (term) => dispatch(setSearchTerm(term))
 })
 
 export default compose(

@@ -3,7 +3,7 @@ import axios from "axios"
 const instance = axios.create({
     withCredentials: true,
     baseURL: "https://social-network.samuraijs.com/api/1.0/",
-    headers: {"API-KEY": "b7bce098-5291-4b73-9757-8bd9fdc7b010"}
+    headers: {"API-KEY": "483805f3-2b31-444d-b120-1a5c1e33d712"}
 })
 
 export const apiAuth = {
@@ -26,8 +26,9 @@ export const apiSecurity = {
 }
 
 export const apiUsers = {
-    getUsers(pageNumber, pageSize) {
-        return instance.get(`users?page=${pageNumber}&count=${pageSize}`).then(response => response.data)
+    getUsers(pageNumber, pageSize, isFriend, term) {
+        return instance.get(`users?page=${pageNumber}&count=${pageSize}&friend=${isFriend}&term=${term}`)
+            .then(response => response.data)
     },
     follow(userId) {
         return instance.post(`follow/${userId}`, {}).then(response => response.data)
@@ -51,8 +52,8 @@ export const apiProfile = {
         return instance.put(`profile`, data).then(response => response.data)
     },
     updateProfilePhoto(photo) {
-        const formData = new FormData();
-        formData.append("image", photo);
+        const formData = new FormData()
+        formData.append("image", photo)
         return instance.put(`profile/photo`, formData, {headers: {"Content-Type": "multipart/form-data"}})
             .then(response => response.data)
     }

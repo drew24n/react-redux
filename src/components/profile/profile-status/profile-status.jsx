@@ -20,7 +20,7 @@ const ProfileStatus = (props) => {
 
     return (
         <Container>
-            <div className={"mb-3 mt-3 text-center"}>
+            <div className={"mb-2 mt-2 text-center"}>
                 {props.isOwner === false
                     ? <>{props.status !== null && <div className={"status"}>Status: {props.status}</div>}</>
                     : <>
