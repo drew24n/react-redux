@@ -19,7 +19,7 @@ const Users = (props) => {
             <SearchUsers friends={props.friends} getUsers={props.getUsers}
                          pageNumber={props.pageNumber} pageSize={props.pageSize} term={props.term}
                          setSearchTerm={props.setSearchTerm} getPageNumber={props.getPageNumber}
-                         getFriends={props.getFriends}/>
+                         getFriends={props.getFriends} isFriendsListFetching={props.isFriendsListFetching}/>
             <CardDeck className={"d-flex flex-wrap justify-content-center mr-3 ml-3 mt-2"}>
                 {props.users.map(user =>
                     <Card key={user.id} border={"primary"} className={"mr-2 ml-2 mt-2 mb-2"}>

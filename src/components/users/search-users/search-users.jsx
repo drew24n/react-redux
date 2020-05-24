@@ -1,6 +1,6 @@
 import React, {useState} from "react"
 import {Container, IconSmall} from "./search-users-style"
-import {Button, Form, Nav, Navbar, NavDropdown} from "react-bootstrap"
+import {Button, Form, Nav, Navbar, NavDropdown, Spinner} from "react-bootstrap"
 import img from "../../../assets/images/default-user-picture.png"
 import {NavLink} from "react-router-dom"
 import {Field, reduxForm} from "redux-form"
@@ -8,17 +8,24 @@ import {Input} from "../../common/forms/input"
 
 const SearchUsers = (props) => {
     let search = (term) => {
+        if (props.pageNumber !== 1) {
+            props.getPageNumber(1)
+        }
         props.getUsers(props.pageNumber, props.pageSize, false, term.term)
-        props.getPageNumber(1)
     }
     let clearSearchValue = () => {
-        props.setSearchTerm("")
-        props.getPageNumber(1)
+        if (props.term) {
+            props.setSearchTerm("")
+            props.getUsers(1, props.pageSize, false, "")
+        }
     }
 
     let [friendsBar, showFriendsBar] = useState(0)
     let [barVisibility, changeVisibility] = useState("hidden")
     let toggleFriendsBar = () => {
+        if (props.friends.length === 0) {
+            props.getFriends()
+        }
         changeVisibility(barVisibility === "hidden" ? "visible" : "hidden")
         showFriendsBar(friendsBar === 0 ? 1 : 0)
     }
@@ -27,7 +34,13 @@ const SearchUsers = (props) => {
         <Container>
             <Navbar bg="dark">
                 <Nav className="mr-2">
-                    <Button className={"btn-info shadow-none"} onClick={toggleFriendsBar}>Friends</Button>
+                    <Button className={"btn-info shadow-none"} onClick={toggleFriendsBar}
+                            disabled={props.isFriendsListFetching}>Friends
+                        {props.isFriendsListFetching === true &&
+                        <Spinner className={"ml-1"} as="span" animation="border" size="sm" role="status"
+                                 aria-hidden="true"/>
+                        }
+                    </Button>
                 </Nav>
                 <SearchReduxForm onSubmit={search} initialValues={props}/>
                 <Button onClick={clearSearchValue} type={"input"} variant="danger"
@@ -56,8 +69,7 @@ const SearchForm = (props) => {
 }
 
 const SearchReduxForm = reduxForm({
-    form: "search",
-    touchOnBlur: false
+    form: "search"
 })(SearchForm)
 
 export default SearchUsers

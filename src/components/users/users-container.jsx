@@ -20,10 +20,10 @@ const UsersContainer = (props) => {
         getUsers(props.pageNumber, props.pageSize)
     }, [props.getUsers, props.pageNumber, props.pageSize])
 
-    useEffect(() => {
-        const getFriends = props.getFriends
-        getFriends()
-    }, [props.getFriends])
+    // useEffect(() => {
+    //     const getFriends = props.getFriends
+    //     getFriends()
+    // }, [props.getFriends])
 
     if (props.isFetching === true) {
         return <Preloader/>
@@ -43,7 +43,8 @@ const mapStateToProps = (state) => ({
     isFetching: state.app.isFetching,
     users: state.users.users,
     friends: state.users.friends,
-    term: state.users.term
+    term: state.users.term,
+    isFriendsListFetching: state.users.isFriendsListFetching
 })
 
 const mapDispatchToProps = (dispatch) => ({

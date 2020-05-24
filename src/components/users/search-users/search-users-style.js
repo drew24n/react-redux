@@ -19,6 +19,9 @@ export const Container = styled.div`
   form {
     flex-wrap: nowrap;
   }
+  .navbar-nav > button {
+    width: 97px;
+  }
   .clear-search {
     position: absolute;
     right: 97px;

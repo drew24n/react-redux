@@ -10,6 +10,7 @@ const FOLLOW = "FOLLOW"
 const UNFOLLOW = "UNFOLLOW"
 const SET_IS_FOLLOWING = "SET_IS_FOLLOWING"
 const SET_SEARCH_TERM = "SET_SEARCH_TERM"
+const IS_FRIENDS_LIST_FETCHING = "IS_FRIENDS_LIST_FETCHING"
 
 const initialState = {
     users: [],
@@ -20,7 +21,8 @@ const initialState = {
     portionNumber: 1,
     friends: [],
     term: "",
-    isFollowInProcess: []
+    isFollowInProcess: [],
+    isFriendsListFetching: false
 }
 
 const usersReducer = (state = initialState, action) => {
@@ -37,6 +39,8 @@ const usersReducer = (state = initialState, action) => {
             return {...state, friends: action.friends}
         case SET_SEARCH_TERM:
             return {...state, term: action.term}
+        case IS_FRIENDS_LIST_FETCHING:
+            return {...state, isFriendsListFetching: action.isFriendsListFetching}
         case FOLLOW:
             return {
                 ...state, users: state.users.map(user => {
@@ -73,6 +77,7 @@ export const unfollow = (userId) => ({type: UNFOLLOW, userId})
 export const setIsFollowing = (isFollowInProcess, userId) => ({type: SET_IS_FOLLOWING, isFollowInProcess, userId})
 export const setFriends = (friends) => ({type: SET_FRIENDS, friends})
 export const setSearchTerm = (term) => ({type: SET_SEARCH_TERM, term})
+export const setListFetching = (isFriendsListFetching) => ({type: IS_FRIENDS_LIST_FETCHING, isFriendsListFetching})
 
 export const getUsers = (pageNumber = 1, pageSize, isFriend, term) => async (dispatch, getState) => {
     dispatch(setIsFetching(true))
@@ -92,10 +97,13 @@ export const getUsers = (pageNumber = 1, pageSize, isFriend, term) => async (dis
 
 export const getFriends = () => async (dispatch) => {
     try {
+        dispatch(setListFetching(true))
         let response = await apiUsers.getUsers(1, 100, true, "")
         dispatch(setFriends(response.items))
     } catch (e) {
         dispatch(setErrorMessage("an error occurred while loading friends list"))
+    } finally {
+        dispatch(setListFetching(false))
     }
 }
 
