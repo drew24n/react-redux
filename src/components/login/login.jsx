@@ -54,8 +54,7 @@ const LoginForm = (props) => {
 }
 
 const LoginReduxForm = reduxForm({
-    form: "authorization",
-    touchOnBlur: false
+    form: "authorization"
 })(LoginForm)
 
 const mapStateToProps = (state) => ({

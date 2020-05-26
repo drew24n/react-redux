@@ -8,26 +8,25 @@ import {Input} from "../../common/forms/input"
 
 const SearchUsers = (props) => {
     let search = (term) => {
-        if (props.pageNumber !== 1) {
-            props.getPageNumber(1)
-        }
-        props.getUsers(props.pageNumber, props.pageSize, false, term.term)
+        props.getPageNumber(1)
+        props.getUsers(1, props.pageSize, false, term.term)
     }
-    let clearSearchValue = () => {
+    let clearSearchResult = () => {
         if (props.term) {
             props.setSearchTerm("")
+            props.getPageNumber(1)
             props.getUsers(1, props.pageSize, false, "")
         }
     }
 
-    let [friendsBar, showFriendsBar] = useState(0)
-    let [barVisibility, changeVisibility] = useState("hidden")
+    let [friendsBar, showFriendsBar] = useState({opacity: 0, visibility: "hidden"})
     let toggleFriendsBar = () => {
         if (props.friends.length === 0) {
             props.getFriends()
         }
-        changeVisibility(barVisibility === "hidden" ? "visible" : "hidden")
-        showFriendsBar(friendsBar === 0 ? 1 : 0)
+        showFriendsBar(friendsBar.opacity === 0
+            ? {...friendsBar, opacity: 1, visibility: "visible"}
+            : {...friendsBar, opacity: 0, visibility: "hidden"})
     }
 
     return (
@@ -43,10 +42,10 @@ const SearchUsers = (props) => {
                     </Button>
                 </Nav>
                 <SearchReduxForm onSubmit={search} initialValues={props}/>
-                <Button onClick={clearSearchValue} type={"input"} variant="danger"
+                <Button onClick={clearSearchResult} type={"input"} variant="danger"
                         className={"ml-2 shadow-none clear-search"}>X</Button>
             </Navbar>
-            <div style={{opacity: friendsBar, visibility: barVisibility}} className="sidenav">
+            <div style={{opacity: friendsBar.opacity, visibility: friendsBar.visibility}} className="sidenav">
                 {props.friends.map(f =>
                     <NavDropdown.Item as={NavLink} to={`/profile/${f.id}`} className={"text-info"} key={f.id}>
                         <IconSmall src={f.photos.small ? f.photos.small : img}/>{f.name}
