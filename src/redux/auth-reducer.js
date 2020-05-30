@@ -1,6 +1,7 @@
-import {apiAuth, apiSecurity} from "../api/api"
 import {SubmissionError} from "redux-form"
 import {setErrorMessage, setIsFetching} from "./app-reducer"
+import {apiAuth} from "../api/api-auth";
+import {apiSecurity} from "../api/api-security";
 
 const SET_AUTH_DATA = "SET_AUTH_DATA"
 const SET_CAPTCHA = "SET_CAPTCHA"

@@ -1,5 +1,5 @@
-import {apiUsers} from "../api/api"
 import {setErrorMessage, setIsFetching} from "./app-reducer"
+import {apiUsers} from "../api/api-users";
 
 const SET_USERS = "SET_USERS"
 const SET_PAGE_NUMBER = "SET_PAGE_NUMBER"

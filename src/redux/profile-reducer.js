@@ -1,6 +1,6 @@
-import {apiProfile} from "../api/api"
 import {setErrorMessage, setIsFetching} from "./app-reducer"
 import {SubmissionError} from "redux-form"
+import {apiProfile} from "../api/api-profile";
 
 const SET_PROFILE = "SET_PROFILE"
 const SET_PROFILE_PHOTO = "SET_PROFILE_PHOTO"

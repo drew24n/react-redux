@@ -4,6 +4,10 @@
   "private": true,
   "homepage": "https://drew24n.github.io/react-redux/",
   "dependencies": {
+    "@types/jest": "^25.2.3",
+    "@types/node": "^14.0.5",
+    "@types/react": "^16.9.35",
+    "@types/react-dom": "^16.9.8",
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
     "react": "^16.13.1",
@@ -15,7 +19,8 @@
     "redux": "^4.0.5",
     "redux-form": "^8.3.5",
     "redux-thunk": "^2.3.0",
-    "styled-components": "^5.0.1"
+    "styled-components": "^5.0.1",
+    "typescript": "^3.9.3"
   },
   "scripts": {
     "start": "react-scripts start",
