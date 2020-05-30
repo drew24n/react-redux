@@ -8,11 +8,9 @@ type loginParams = {
 }
 
 type meResponse = {
-    data: {
-        id: number
-        email: string
-        login: string
-    }
+    id: number
+    email: string
+    login: string
 }
 
 type loginResponse = {

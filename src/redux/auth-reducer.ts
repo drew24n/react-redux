@@ -1,21 +1,60 @@
 import {SubmissionError} from "redux-form"
-import {setErrorMessage, setIsFetching} from "./app-reducer"
-import {apiAuth} from "../api/api-auth";
-import {apiSecurity} from "../api/api-security";
+import {setErrorMessage, setErrorMessageType, setIsFetching, setIsFetchingType} from "./app-reducer"
+import {apiAuth} from "../api/api-auth"
+import {apiSecurity} from "../api/api-security"
+import {ThunkAction} from "redux-thunk"
+import {stateType} from "./redux-store"
 
 const SET_AUTH_DATA = "SET_AUTH_DATA"
 const SET_CAPTCHA = "SET_CAPTCHA"
+
+type initialStateType = {
+    id: number | null
+    login: string | null
+    email: string | null
+    rememberMe: boolean
+    captcha: string | null
+    isAuthorized: boolean
+}
+
+type setAuthDataType<T = {}> = {
+    type: typeof SET_AUTH_DATA
+    payload: T
+    isAuthorized: boolean
+}
+
+type authPayloadType = {
+    id: number | null
+    login: string | null
+    email: string | null
+}
+
+type setCaptchaType = {
+    type: typeof SET_CAPTCHA
+    captcha: string | null
+}
+
+type loginPayloadType = {
+    email: string
+    password: string
+    rememberMe: boolean
+    captcha?: string
+}
+
+type actionsType = setAuthDataType<authPayloadType> | setCaptchaType | setErrorMessageType | setIsFetchingType
+
+type thunkActionType = ThunkAction<Promise<void>, stateType, unknown, actionsType>
 
 const initialState = {
     id: null,
     login: null,
     email: null,
-    rememberMe: null,
+    rememberMe: false,
     captcha: null,
     isAuthorized: false
 }
 
-const authReducer = (state = initialState, action) => {
+const authReducer = (state = initialState, action: actionsType): initialStateType => {
     switch (action.type) {
         case SET_AUTH_DATA:
             return {...state, ...action.payload, isAuthorized: action.isAuthorized}
@@ -26,18 +65,19 @@ const authReducer = (state = initialState, action) => {
     }
 }
 
-export const setAuthData = ({id, login, email}, isAuthorized) => ({
+export const setAuthData = ({id, login, email}: authPayloadType, isAuthorized: boolean): actionsType => ({
     type: SET_AUTH_DATA,
     payload: {id, login, email},
     isAuthorized
 })
-export const setCaptcha = (captcha) => ({type: SET_CAPTCHA, captcha})
 
-export const authMe = () => async (dispatch) => {
+export const setCaptcha = (captcha: string | null): actionsType => ({type: SET_CAPTCHA, captcha})
+
+export const authMe = (): thunkActionType => async (dispatch) => {
     let response = await apiAuth.me()
     if (response.resultCode === 0) {
-        let {id, email, login} = response.data
-        dispatch(setAuthData({id, email, login}, true))
+        // let {id, email, login} = response.data
+        dispatch(setAuthData(response.data, true))
     } else if (response.resultCode === 1) {
         // console.log("not authorized")
     } else {
@@ -45,7 +85,7 @@ export const authMe = () => async (dispatch) => {
     }
 }
 
-export const login = ({email, password, rememberMe, captcha}) => async (dispatch) => {
+export const login = ({email, password, rememberMe, captcha}: loginPayloadType): thunkActionType => async (dispatch) => {debugger
     dispatch(setIsFetching(true))
     let response = await apiAuth.login({email, password, rememberMe, captcha})
     if (response.resultCode === 0) {
@@ -61,7 +101,7 @@ export const login = ({email, password, rememberMe, captcha}) => async (dispatch
     dispatch(setIsFetching(false))
 }
 
-export const logout = () => async (dispatch) => {
+export const logout = (): thunkActionType => async (dispatch) => {
     dispatch(setIsFetching(true))
     let response = await apiAuth.logout()
     if (response.resultCode === 0) {
