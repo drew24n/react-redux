@@ -85,7 +85,7 @@ export const authMe = (): thunkActionType => async (dispatch) => {
     }
 }
 
-export const login = ({email, password, rememberMe, captcha}: loginPayloadType): thunkActionType => async (dispatch) => {debugger
+export const login = ({email, password, rememberMe, captcha}: loginPayloadType): thunkActionType => async (dispatch) => {
     dispatch(setIsFetching(true))
     let response = await apiAuth.login({email, password, rememberMe, captcha})
     if (response.resultCode === 0) {
