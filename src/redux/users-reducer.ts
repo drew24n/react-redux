@@ -1,5 +1,7 @@
-import {setErrorMessage, setIsFetching} from "./app-reducer"
-import {apiUsers} from "../api/api-users";
+import {setErrorMessage, setErrorMessageType, setIsFetching, setIsFetchingType} from "./app-reducer"
+import {apiUsers, userItem} from "../api/api-users"
+import {ThunkAction} from "redux-thunk"
+import {stateType} from "./redux-store"
 
 const SET_USERS = "SET_USERS"
 const SET_PAGE_NUMBER = "SET_PAGE_NUMBER"
@@ -12,20 +14,75 @@ const SET_IS_FOLLOWING = "SET_IS_FOLLOWING"
 const SET_SEARCH_TERM = "SET_SEARCH_TERM"
 const IS_FRIENDS_LIST_FETCHING = "IS_FRIENDS_LIST_FETCHING"
 
+type setUsers = {
+    type: typeof SET_USERS
+    users: Array<userItem>
+}
+
+type setPageNumber = {
+    type: typeof SET_PAGE_NUMBER
+    pageNumber: number
+}
+
+type setPortionNumber = {
+    type: typeof SET_PORTION_NUMBER
+    portionNumber: number
+}
+
+type setUsersCount = {
+    type: typeof SET_USERS_COUNT
+    usersCount: number
+}
+
+type follow = {
+    type: typeof FOLLOW
+    userId: number
+}
+type unfollow = {
+    type: typeof UNFOLLOW
+    userId: number
+}
+
+type setIsFollowing = {
+    type: typeof SET_IS_FOLLOWING
+    isFollowInProcess: boolean
+    userId: number
+}
+
+type setFriends = {
+    type: typeof SET_FRIENDS
+    friends: Array<userItem>
+}
+
+type setSearchTerm = {
+    type: typeof SET_SEARCH_TERM
+    term: string
+}
+
+type setListFetching = {
+    type: typeof IS_FRIENDS_LIST_FETCHING
+    isFriendsListFetching: boolean
+}
+
+type actionsType = setUsers | setPageNumber | setPortionNumber | setUsersCount | follow | unfollow | setIsFollowing |
+    setFriends | setSearchTerm | setListFetching | setIsFetchingType | setErrorMessageType
+
+type thunkActionType = ThunkAction<Promise<void>, stateType, unknown, actionsType>
+
 const initialState = {
-    users: [],
-    usersCount: null,
-    pageSize: 10,
-    pageNumber: 1,
-    portionSize: 10,
-    portionNumber: 1,
-    friends: [],
-    term: "",
-    isFollowInProcess: [],
+    users: [] as Array<userItem>,
+    usersCount: 0 as number,
+    pageSize: 10 as number,
+    pageNumber: 1 as number,
+    portionSize: 10 as number,
+    portionNumber: 1 as number,
+    friends: [] as Array<userItem>,
+    term: "" as string,
+    isFollowInProcess: [] as Array<boolean | number>,
     isFriendsListFetching: false
 }
 
-const usersReducer = (state = initialState, action) => {
+const usersReducer = (state = initialState, action: actionsType): typeof initialState => {
     switch (action.type) {
         case SET_USERS:
             return {...state, users: [...action.users]}
@@ -68,18 +125,22 @@ const usersReducer = (state = initialState, action) => {
     }
 }
 
-export const setUsers = (users) => ({type: SET_USERS, users})
-export const setPageNumber = (pageNumber) => ({type: SET_PAGE_NUMBER, pageNumber})
-export const setPortionNumber = (portionNumber) => ({type: SET_PORTION_NUMBER, portionNumber})
-export const setUsersCount = (usersCount) => ({type: SET_USERS_COUNT, usersCount})
-export const follow = (userId) => ({type: FOLLOW, userId})
-export const unfollow = (userId) => ({type: UNFOLLOW, userId})
-export const setIsFollowing = (isFollowInProcess, userId) => ({type: SET_IS_FOLLOWING, isFollowInProcess, userId})
-export const setFriends = (friends) => ({type: SET_FRIENDS, friends})
-export const setSearchTerm = (term) => ({type: SET_SEARCH_TERM, term})
-export const setListFetching = (isFriendsListFetching) => ({type: IS_FRIENDS_LIST_FETCHING, isFriendsListFetching})
+export const setUsers = (users: Array<userItem>): setUsers => ({type: SET_USERS, users})
+export const setPageNumber = (pageNumber: number): setPageNumber => ({type: SET_PAGE_NUMBER, pageNumber})
+export const setPortionNumber = (portionNumber: number): setPortionNumber => ({type: SET_PORTION_NUMBER, portionNumber})
+export const setUsersCount = (usersCount: number): setUsersCount => ({type: SET_USERS_COUNT, usersCount})
+export const follow = (userId: number): follow => ({type: FOLLOW, userId})
+export const unfollow = (userId: number): unfollow => ({type: UNFOLLOW, userId})
+export const setIsFollowing = (isFollowInProcess: boolean, userId: number): setIsFollowing => ({
+    type: SET_IS_FOLLOWING, isFollowInProcess, userId
+})
+export const setFriends = (friends: Array<userItem>): setFriends => ({type: SET_FRIENDS, friends})
+export const setSearchTerm = (term: string): setSearchTerm => ({type: SET_SEARCH_TERM, term})
+export const setListFetching = (isFriendsListFetching: boolean): setListFetching => ({
+    type: IS_FRIENDS_LIST_FETCHING, isFriendsListFetching
+})
 
-export const getUsers = (pageNumber = 1, pageSize, isFriend, term) => async (dispatch, getState) => {
+export const getUsers = (pageNumber = 1, pageSize: number, isFriend: boolean, term: string): thunkActionType => async (dispatch, getState) => {
     dispatch(setIsFetching(true))
     try {
         if (term) {
@@ -95,7 +156,7 @@ export const getUsers = (pageNumber = 1, pageSize, isFriend, term) => async (dis
     dispatch(setIsFetching(false))
 }
 
-export const getFriends = () => async (dispatch) => {
+export const getFriends = (): thunkActionType => async (dispatch) => {
     try {
         dispatch(setListFetching(true))
         let response = await apiUsers.getUsers(1, 100, true, "")
@@ -107,24 +168,24 @@ export const getFriends = () => async (dispatch) => {
     }
 }
 
-export const setFollow = (userId) => async (dispatch) => {
+export const setFollow = (userId: number): thunkActionType => async (dispatch) => {
     dispatch(setIsFollowing(true, userId))
     let response = await apiUsers.follow(userId)
     if (response.resultCode === 0) {
         dispatch(follow(userId))
-        dispatch(getFriends())
+        await dispatch(getFriends())
     } else {
         dispatch(setErrorMessage("an error occurred while following user"))
     }
     dispatch(setIsFollowing(false, userId))
 }
 
-export const setUnfollow = (userId) => async (dispatch) => {
+export const setUnfollow = (userId: number): thunkActionType => async (dispatch) => {
     dispatch(setIsFollowing(true, userId))
     let response = await apiUsers.unfollow(userId)
     if (response.resultCode === 0) {
         dispatch(unfollow(userId))
-        dispatch(getFriends())
+        await dispatch(getFriends())
     } else {
         dispatch(setErrorMessage("an error occurred while unfollowing user"))
     }

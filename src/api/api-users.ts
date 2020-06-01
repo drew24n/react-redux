@@ -1,12 +1,12 @@
 import {instance, response} from "./api"
 
 type usersResponse<T> = {
-    item: Array<T>
+    items: Array<T>
     totalCount: number
     error: string
 }
 
-type userItem = {
+export type userItem = {
     id: number
     name: string
     status: string | null
