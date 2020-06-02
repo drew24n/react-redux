@@ -71,11 +71,11 @@ type thunkActionType = ThunkAction<Promise<void>, stateType, unknown, actionsTyp
 
 const initialState = {
     users: [] as Array<userItem>,
-    usersCount: 0 as number,
-    pageSize: 10 as number,
-    pageNumber: 1 as number,
-    portionSize: 10 as number,
-    portionNumber: 1 as number,
+    usersCount: 0,
+    pageSize: 10,
+    pageNumber: 1,
+    portionSize: 10,
+    portionNumber: 1,
     friends: [] as Array<userItem>,
     term: "" as string,
     isFollowInProcess: [] as Array<boolean | number>,
@@ -140,14 +140,12 @@ export const setListFetching = (isFriendsListFetching: boolean): setListFetching
     type: IS_FRIENDS_LIST_FETCHING, isFriendsListFetching
 })
 
-export const getUsers = (pageNumber = 1, pageSize: number, isFriend: boolean, term: string): thunkActionType => async (dispatch, getState) => {
+export const getUsers = (pageNumber = 1, pageSize: number, isFriend: boolean): thunkActionType =>
+    async (dispatch, getState) => {
     dispatch(setIsFetching(true))
     try {
-        if (term) {
-            dispatch(setSearchTerm(term))
-        }
-        let searchTerm = getState().users.term
-        let response = await apiUsers.getUsers(pageNumber, pageSize, isFriend = false, searchTerm)
+        let term = getState().users.term
+        let response = await apiUsers.getUsers(pageNumber, pageSize, isFriend = false, term)
         dispatch(setUsers(response.items))
         dispatch(setUsersCount(response.totalCount))
     } catch (e) {

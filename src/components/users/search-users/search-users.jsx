@@ -8,14 +8,17 @@ import {Input} from "../../common/forms/input"
 
 const SearchUsers = (props) => {
     let search = (term) => {
-        props.getPageNumber(1)
-        props.getUsers(1, props.pageSize, false, term.term)
+        if (term) {
+            props.setPortionNumber(1)
+            props.getPageNumber(1)
+            props.setSearchTerm(term.term)
+        }
     }
     let clearSearchResult = () => {
         if (props.term) {
             props.setSearchTerm("")
+            props.setPortionNumber(1)
             props.getPageNumber(1)
-            props.getUsers(1, props.pageSize, false, "")
         }
     }
 

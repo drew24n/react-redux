@@ -17,13 +17,8 @@ import Preloader from "../common/preloader/preloader"
 const UsersContainer = (props) => {
     useEffect(() => {
         const getUsers = props.getUsers
-        getUsers(props.pageNumber, props.pageSize)
-    }, [props.getUsers, props.pageNumber, props.pageSize])
-
-    // useEffect(() => {
-    //     const getFriends = props.getFriends
-    //     getFriends()
-    // }, [props.getFriends])
+        getUsers(props.pageNumber, props.pageSize, false, props.term)
+    }, [props.getUsers, props.pageNumber, props.pageSize, props.term])
 
     if (props.isFetching === true) {
         return <Preloader/>
@@ -53,7 +48,7 @@ const mapDispatchToProps = (dispatch) => ({
     setPortionNumber: (portionNumber) => dispatch(setPortionNumber(portionNumber)),
     follow: (userId) => dispatch(setFollow(userId)),
     unfollow: (userId) => dispatch(setUnfollow(userId)),
-    getFriends: (pageNumber, pageSize, isFriend) => dispatch(getFriends(pageNumber, pageSize, isFriend)),
+    getFriends: () => dispatch(getFriends()),
     setSearchTerm: (term) => dispatch(setSearchTerm(term))
 })
 
