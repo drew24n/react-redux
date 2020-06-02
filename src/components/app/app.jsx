@@ -7,7 +7,6 @@ import {initializeApp, setErrorMessage, setIsFetching} from "../../redux/app-red
 import Header from "../header/header"
 import IncorrectUrl from "../incorrect-url/incorrect-url"
 import Login from "../login/login"
-// import Home from "../home/home"
 import Footer from "../footer/footer"
 import Preloader from "../common/preloader/preloader"
 import Error from "../common/error-modal/error-modal"

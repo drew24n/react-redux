@@ -7,7 +7,7 @@ const Error = (props) => {
     const setErrorMessage = () => props.setErrorMessage(null)
 
     return (
-        <Modal show={props.error !== null} onHide={setErrorMessage} centered>
+        <Modal show={props.error !== null} onHide={setErrorMessage} centered style={{zIndex: 10000}}>
             <Modal.Header closeButton>
                 <Modal.Title>An error occurred:</Modal.Title>
             </Modal.Header>

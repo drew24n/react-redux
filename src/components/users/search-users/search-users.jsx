@@ -8,7 +8,7 @@ import {Input} from "../../common/forms/input"
 
 const SearchUsers = (props) => {
     let search = (term) => {
-        if (term) {
+        if (term.term) {
             props.setPortionNumber(1)
             props.getPageNumber(1)
             props.setSearchTerm(term.term)
