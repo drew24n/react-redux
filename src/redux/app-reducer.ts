@@ -6,12 +6,6 @@ const SET_IS_INITIALIZED = "SET_INITIALIZED"
 const SET_ERROR_MESSAGE = "SET_ERROR_MESSAGE"
 export const SET_IS_FETCHING = "SET_IS_FETCHING"
 
-type initialStateType = {
-    isInitialized: boolean
-    isFetching: boolean
-    error: string | null
-}
-
 type setInitializedType = {
     type: typeof SET_IS_INITIALIZED
     isInitialized: boolean
@@ -34,10 +28,10 @@ type thunkActionType = ThunkAction<Promise<void>, stateType, unknown, actionsTyp
 const initialState = {
     isInitialized: false,
     isFetching: false,
-    error: null
+    error: null as string | null
 }
 
-const appReducer = (state = initialState, action: actionsType): initialStateType => {
+const appReducer = (state = initialState, action: actionsType): typeof initialState=> {
     switch (action.type) {
         case SET_IS_INITIALIZED:
             return {...state, isInitialized: action.isInitialized}

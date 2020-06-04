@@ -1,4 +1,4 @@
-import React, {useEffect} from "react"
+import React, {FC, useEffect} from "react"
 import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom"
 import {connect} from "react-redux"
 import "bootstrap/dist/css/bootstrap.css"
@@ -12,25 +12,40 @@ import Preloader from "../common/preloader/preloader"
 import Error from "../common/error-modal/error-modal"
 import ProfileContainer from "../profile/profile-container"
 import UsersContainer from "../users/users-container"
-
+import {stateType} from "../../redux/redux-store"
+import {ThunkDispatch} from "redux-thunk"
+import {Action} from "redux"
 
 // const UsersContainer = React.lazy(() => import(`../users/users-container`))
 // const ProfileContainer = React.lazy(() => import(`../profile/profile-container`))
 
-const App = (props) => {
-    const catchAllUnhandledErrors = (reason) => {
+type mapStateToPropsType = {
+    isInitialized: boolean
+    error: string | null
+}
+
+type mapDispatchToPropsType = {
+    initializeApp: () => void
+    setIsFetching: (isFetching: boolean) => void,
+    setErrorMessage: (error: string) => void
+}
+
+export type propsType = mapStateToPropsType & mapDispatchToPropsType
+
+const App: FC<propsType> = (props) => {
+    const catchAllUnhandledErrors = (reason: any) => {
         props.setIsFetching(false)
         props.setErrorMessage(reason.reason.message)
     }
 
     useEffect(() => {
-        if (props.isInitialized === false) {
+        if (!props.isInitialized) {
             props.initializeApp()
         }
         window.addEventListener("unhandledrejection", catchAllUnhandledErrors)
     })
 
-    if (props.isInitialized === false) return <Preloader/>
+    if (!props.isInitialized) return <Preloader/>
 
     return (
         <Container>
@@ -53,12 +68,13 @@ const App = (props) => {
     )
 }
 
-const mapStateToProps = (state) => ({
-    isInitialized: state.app.isInitialized
+const mapStateToProps = (state: stateType) => ({
+    isInitialized: state.app.isInitialized,
+    error: state.app.error
 })
 
-const mapDispatchToProps = (dispatch) => ({
-    initializeApp: (isInitialized) => dispatch(initializeApp(isInitialized)),
+const mapDispatchToProps = (dispatch: ThunkDispatch<stateType, undefined, Action>): mapDispatchToPropsType => ({
+    initializeApp: () => dispatch(initializeApp()),
     setIsFetching: (isFetching) => dispatch(setIsFetching(isFetching)),
     setErrorMessage: (error) => dispatch(setErrorMessage(error))
 })

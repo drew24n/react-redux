@@ -8,15 +8,6 @@ import {stateType} from "./redux-store"
 const SET_AUTH_DATA = "SET_AUTH_DATA"
 const SET_CAPTCHA = "SET_CAPTCHA"
 
-type initialStateType = {
-    id: number | null
-    login: string | null
-    email: string | null
-    rememberMe: boolean
-    captcha: string | null
-    isAuthorized: boolean
-}
-
 type setAuthDataType<T = {}> = {
     type: typeof SET_AUTH_DATA
     payload: T
@@ -46,15 +37,15 @@ type actionsType = setAuthDataType<authPayloadType> | setCaptchaType | setErrorM
 type thunkActionType = ThunkAction<Promise<void>, stateType, unknown, actionsType>
 
 const initialState = {
-    id: null,
-    login: null,
-    email: null,
+    id: null as number | null,
+    login: null as string | null,
+    email: null as string | null,
     rememberMe: false,
-    captcha: null,
+    captcha: null as string | null,
     isAuthorized: false
 }
 
-const authReducer = (state = initialState, action: actionsType): initialStateType => {
+const authReducer = (state = initialState, action: actionsType): typeof initialState=> {
     switch (action.type) {
         case SET_AUTH_DATA:
             return {...state, ...action.payload, isAuthorized: action.isAuthorized}

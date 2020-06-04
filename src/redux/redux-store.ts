@@ -7,10 +7,7 @@ import profileReducer from "./profile-reducer"
 import {reducer as formReducer} from "redux-form"
 import {composeWithDevTools} from 'redux-devtools-extension'
 
-type rootReducerType = typeof reducers
-export type stateType = ReturnType<rootReducerType>
-
-const reducers = combineReducers({
+const rootReducer = combineReducers({
     auth: authReducer,
     app: appReducer,
     users: usersReducer,
@@ -18,7 +15,10 @@ const reducers = combineReducers({
     form: formReducer
 })
 
-const store = createStore(reducers, compose(
+type rootReducerType = typeof rootReducer
+export type stateType = ReturnType<rootReducerType>
+
+const store = createStore(rootReducer, compose(
     applyMiddleware(thunk),
     composeWithDevTools() ? composeWithDevTools() : (f: () => void) => f
 ))
