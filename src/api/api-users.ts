@@ -18,7 +18,7 @@ export type userItem = {
 }
 
 export const apiUsers = {
-    getUsers(pageNumber: number, pageSize: number, isFriend: boolean, term?: string)  {
+    getUsers(pageNumber: number, pageSize: number, isFriend: boolean, term: string)  {
         return instance.get<usersResponse<userItem>>(`users?page=${pageNumber}&count=${pageSize}&friend=${isFriend}&term=${term}`)
             .then(response => response.data)
     },

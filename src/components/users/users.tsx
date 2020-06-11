@@ -1,12 +1,13 @@
-import React from "react"
+import React, {FC} from "react"
 import {NavLink} from "react-router-dom"
 import {Container} from "./users-style"
 import {Button, Card, CardDeck, Spinner} from "react-bootstrap"
 import defaultPhoto from "../../assets/images/default-user-picture.png"
 import SearchUsers from "./search-users/search-users"
 import CustomPagination from "../common/pagination/custom-pagination"
+import {propsType} from "./users-container";
 
-const Users = (props) => {
+const Users: FC<propsType> = (props) => {
     return (
         <Container>
             <SearchUsers friends={props.friends} getUsers={props.getUsers}
@@ -25,7 +26,7 @@ const Users = (props) => {
                             <Card.Title className={"mb-0"}>Name: {user.name}</Card.Title>
                             <Card.Text
                                 className={"mb-0"}>{user.status ? `Status: ${user.status}` : "no status"}</Card.Text>
-                            {user.followed === true
+                            {user.followed
                                 ? <Button onClick={() => props.unfollow(user.id)} className={"mb-2 mt-1 shadow-none"}
                                           variant="primary"
                                           disabled={props.isFollowInProcess.some(id => id === user.id)}>Unfollow

@@ -48,6 +48,7 @@
   },
   "devDependencies": {
     "gh-pages": "^2.2.0",
+    "prettier": "^2.0.5",
     "redux-devtools-extension": "^2.13.8"
   }
 }

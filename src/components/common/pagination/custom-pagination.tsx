@@ -1,7 +1,17 @@
-import React from "react"
+import React, {FC} from "react"
 import {Pagination} from "react-bootstrap"
 
-const CustomPagination = (props) => {
+type propsType = {
+    usersCount: number
+    pageSize: number
+    portionSize: number
+    portionNumber: number
+    pageNumber: number
+    getPageNumber: (p: number, pageSize: number) => void
+    setPortionNumber: (portionNumber: number) => void
+}
+
+const CustomPagination:FC<propsType> = (props) => {
     let pagesAmount = Math.ceil(props.usersCount / props.pageSize)
     let pages = []
     for (let i = 1; pagesAmount >= i; i++) pages.push(i)

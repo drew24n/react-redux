@@ -4,6 +4,7 @@ export const Container = styled.div`
   position: fixed;
   width: 100%;
   top: 72px;
+  min-width: 360px;
   z-index: 1029;
   border-top: 1px solid #fff;
   box-sizing: border-box;
@@ -18,6 +19,14 @@ export const Container = styled.div`
   }
   form {
     flex-wrap: nowrap;
+    input {
+      height: 38px;
+      outline: none;
+      width: 200px;
+      @media (max-width: 435px) {
+        width: 142px;
+      }
+    }
   }
   .navbar-nav > button {
     width: 97px;
@@ -25,7 +34,7 @@ export const Container = styled.div`
   .clear-search {
     position: absolute;
     right: 97px;
-    border-radius: 0 0.25rem 0.25rem 0;
+    border-radius: 0;
     z-index: 1;
   }
   .sidenav {

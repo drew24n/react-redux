@@ -86,6 +86,7 @@ export const login = ({email, password, rememberMe, captcha}: loginPayloadType):
         let captcha = await apiSecurity.getCaptcha()
         dispatch(setCaptcha(captcha))
     } else {
+        dispatch(setIsFetching(false))
         let message = response.messages.length > 0 ? response.messages[0] : "unknown error occurred"
         throw new SubmissionError({_error: message})
     }

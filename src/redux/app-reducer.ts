@@ -13,7 +13,7 @@ type setInitializedType = {
 
 export type setErrorMessageType = {
     type: typeof SET_ERROR_MESSAGE
-    error: string
+    error: string | null
 }
 
 export type setIsFetchingType = {
@@ -31,7 +31,7 @@ const initialState = {
     error: null as string | null
 }
 
-const appReducer = (state = initialState, action: actionsType): typeof initialState=> {
+const appReducer = (state = initialState, action: actionsType): typeof initialState => {
     switch (action.type) {
         case SET_IS_INITIALIZED:
             return {...state, isInitialized: action.isInitialized}
@@ -45,7 +45,7 @@ const appReducer = (state = initialState, action: actionsType): typeof initialSt
 }
 
 const setIsInitialized = (isInitialized: boolean): setInitializedType => ({type: SET_IS_INITIALIZED, isInitialized})
-export const setErrorMessage = (error: string): setErrorMessageType => ({type: SET_ERROR_MESSAGE, error})
+export const setErrorMessage = (error: string | null): setErrorMessageType => ({type: SET_ERROR_MESSAGE, error})
 export const setIsFetching = (isFetching: boolean): setIsFetchingType => ({type: SET_IS_FETCHING, isFetching})
 
 export const initializeApp = (): thunkActionType => async (dispatch) => {
