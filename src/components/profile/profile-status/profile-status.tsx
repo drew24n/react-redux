@@ -1,9 +1,15 @@
-import React, {memo, useEffect, useState} from "react"
+import React, {ChangeEvent, FC, memo, useEffect, useState} from "react"
 import {Container} from "./profile-status-style"
 import {compose} from "redux"
 import {OverlayTrigger, Tooltip} from "react-bootstrap"
 
-const ProfileStatus = (props) => {
+type propsType = {
+    status: string
+    updateStatus: (status: string) => void
+    isOwner: boolean
+}
+
+const ProfileStatus: FC<propsType> = (props) => {
     let [editMode, setEditMode] = useState(false)
     let [status, setStatus] = useState(props.status)
 
@@ -16,15 +22,15 @@ const ProfileStatus = (props) => {
         setEditMode(false)
         props.updateStatus(status)
     }
-    const onStatusChange = (e) => setStatus(e.currentTarget.value)
+    const onStatusChange = (e: ChangeEvent<HTMLInputElement>) => setStatus(e.currentTarget.value)
 
     return (
         <Container>
             <div className={"mb-2 mt-2 text-center"}>
-                {props.isOwner === false
+                {!props.isOwner
                     ? <>{props.status !== null && <div className={"status"}>Status: {props.status}</div>}</>
                     : <>
-                        {editMode === false
+                        {!editMode
                             ? <OverlayTrigger key={"bottom"} placement={"bottom"} overlay={
                                 <Tooltip id={"tooltip-bottom"}>
                                     click to update status!

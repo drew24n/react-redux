@@ -1,7 +1,8 @@
-import React from "react"
+import React, {FC} from "react"
 import {Container} from "./input-style"
+import {WrappedFieldProps} from "redux-form";
 
-export const Input = ({input, meta, ...props}) => {
+export const Input: FC<WrappedFieldProps> = ({input, meta, ...props}) => {
     return (
         <Container>
             <input{...input}{...props}/>

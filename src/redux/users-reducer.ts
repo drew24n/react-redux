@@ -142,17 +142,17 @@ export const setListFetching = (isFriendsListFetching: boolean): setListFetching
 
 export const getUsers = (pageNumber = 1, pageSize: number, isFriend: boolean): thunkActionType =>
     async (dispatch, getState) => {
-    dispatch(setIsFetching(true))
-    try {
-        let term = getState().users.term
-        let response = await apiUsers.getUsers(pageNumber, pageSize, isFriend = false, term)
-        dispatch(setUsers(response.items))
-        dispatch(setUsersCount(response.totalCount))
-    } catch (e) {
-        dispatch(setErrorMessage("an error occurred while loading users"))
+        dispatch(setIsFetching(true))
+        try {
+            let term = getState().users.term
+            let response = await apiUsers.getUsers(pageNumber, pageSize, isFriend = false, term)
+            dispatch(setUsers(response.items))
+            dispatch(setUsersCount(response.totalCount))
+        } catch (e) {
+            dispatch(setErrorMessage("an error occurred while loading users"))
+        }
+        dispatch(setIsFetching(false))
     }
-    dispatch(setIsFetching(false))
-}
 
 export const getFriends = (): thunkActionType => async (dispatch) => {
     try {
@@ -168,26 +168,32 @@ export const getFriends = (): thunkActionType => async (dispatch) => {
 
 export const setFollow = (userId: number): thunkActionType => async (dispatch) => {
     dispatch(setIsFollowing(true, userId))
-    let response = await apiUsers.follow(userId)
-    if (response.resultCode === 0) {
-        dispatch(follow(userId))
-        await dispatch(getFriends())
-    } else {
+    try {
+        let response = await apiUsers.follow(userId)
+        if (response.resultCode === 0) {
+            dispatch(follow(userId))
+            await dispatch(getFriends())
+            dispatch(setIsFollowing(false, userId))
+        }
+    } catch (e) {
+        dispatch(setIsFollowing(false, userId))
         dispatch(setErrorMessage("an error occurred while following user"))
     }
-    dispatch(setIsFollowing(false, userId))
 }
 
 export const setUnfollow = (userId: number): thunkActionType => async (dispatch) => {
     dispatch(setIsFollowing(true, userId))
-    let response = await apiUsers.unfollow(userId)
-    if (response.resultCode === 0) {
-        dispatch(unfollow(userId))
-        await dispatch(getFriends())
-    } else {
+    try {
+        let response = await apiUsers.unfollow(userId)
+        if (response.resultCode === 0) {
+            dispatch(unfollow(userId))
+            await dispatch(getFriends())
+            dispatch(setIsFollowing(false, userId))
+        }
+    } catch (e) {
+        dispatch(setIsFollowing(false, userId))
         dispatch(setErrorMessage("an error occurred while unfollowing user"))
     }
-    dispatch(setIsFollowing(false, userId))
 }
 
 export default usersReducer

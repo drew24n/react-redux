@@ -4,7 +4,7 @@ import {connect} from "react-redux"
 import {withRouter, RouteComponentProps} from "react-router-dom"
 import {withAuthRedirect} from "../../hoc/with-auth-redirect"
 import Profile from "./profile"
-import Preloader from "../common/preloader/preloader"
+// import Preloader from "../common/preloader/preloader"
 import {
     getProfile,
     getStatus,
@@ -25,6 +25,7 @@ type mapStateTopProps = {
     profileEditMode: boolean
     isAuthorized: boolean
     profileEditInProcess: boolean
+    isOwner: boolean
 }
 
 type mapDispatchToProps = {
@@ -41,7 +42,7 @@ type userIdRoute = {
 }
 
 // @ts-ignore
-type propsType = mapStateTopProps & mapDispatchToProps & RouteComponentProps<userIdRoute>
+export type propsType = mapStateTopProps & mapDispatchToProps & RouteComponentProps<userIdRoute>
 
 const ProfileContainer: FC<propsType> = (props) => {
     let userId = props.match.params.userId
@@ -54,11 +55,11 @@ const ProfileContainer: FC<propsType> = (props) => {
         getStatus(userId)
     }, [props.getProfile, props.getStatus, userId])
 
-    if (props.isFetching) {
-        return <Preloader/>
-    } else {
+    // if (props.isFetching) {
+    //     return <Preloader/>
+    // } else {
         return <Profile {...props} isOwner={!props.match.params.userId}/>
-    }
+    // }
 }
 
 const mapStateToProps = (state: stateType) => ({

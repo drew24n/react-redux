@@ -5,7 +5,7 @@ export const Container = styled.main`
   align-self: center;
   justify-self: center;
   form {
-    width: 200px;
+    width: 185px;
   }
   .response-error {
     color: #00FF00;
@@ -13,6 +13,6 @@ export const Container = styled.main`
 `
 
 export const Captcha = styled.img`
-  width: 200px;
+  width: 185px;
   height: 70px;
 `

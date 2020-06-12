@@ -12,7 +12,7 @@ import {
     setSearchTerm,
     setPageNumber
 } from "../../redux/users-reducer"
-import Preloader from "../common/preloader/preloader"
+// import Preloader from "../common/preloader/preloader"
 import {stateType} from "../../redux/redux-store";
 import {ThunkDispatch} from "redux-thunk";
 import {userItem} from "../../api/api-users";
@@ -50,11 +50,11 @@ const UsersContainer: FC<propsType> = (props) => {
         getUsers(props.pageNumber, props.pageSize, false, props.term)
     }, [props.getUsers, props.pageNumber, props.pageSize, props.term])
 
-    if (props.isFetching) {
-        return <Preloader/>
-    } else {
+    // if (props.isFetching) {
+    //     return <Preloader/>
+    // } else {
         return <Users {...props}/>
-    }
+    // }
 }
 
 const mapStateToProps = (state: stateType) => ({

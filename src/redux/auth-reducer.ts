@@ -25,7 +25,7 @@ type setCaptchaType = {
     captcha: string | null
 }
 
-type loginPayloadType = {
+export type loginPayloadType = {
     email: string
     password: string
     rememberMe: boolean
