@@ -34,7 +34,7 @@ export const Container = styled.div`
   .clear-search {
     position: absolute;
     right: 97px;
-    border-radius: 0;
+    border-radius: 0 0.25rem 0.25rem 0;
     z-index: 1;
   }
   .sidenav {

@@ -42,13 +42,13 @@ const LoginForm: FC<InjectedFormProps<loginPayloadType, loginFormOwnProps> & log
         <Form onSubmit={props.handleSubmit}>
             <Form.Group className={"text-center text-white"}>
                 <Form.Label>Email address</Form.Label>
-                <Field name={"email"} component={Input} type={"input"}
-                              placeholder={"Enter email"} validate={[required, email, maxLength25]}/>
+                <Field className={"form-control"} name={"email"} component={Input} type={"input"}
+                       placeholder={"Enter email"} validate={[required, email, maxLength25]}/>
             </Form.Group>
             <Form.Group className={"text-center text-white"}>
                 <Form.Label>Password</Form.Label>
-                <Field name={"password"} component={Input} type={"password"}
-                              placeholder={"Password"} validate={[required, maxLength25]}/>
+                <Field className={"form-control"} name={"password"} component={Input} type={"password"}
+                       placeholder={"Password"} validate={[required, maxLength25]}/>
             </Form.Group>
             <Form.Group className={"text-center text-white"}>
                 <label>
@@ -60,7 +60,8 @@ const LoginForm: FC<InjectedFormProps<loginPayloadType, loginFormOwnProps> & log
                 {props.captcha !== null &&
                 <>
                     <Captcha src={props.captcha} className={"mb-3"}/>
-                    <Field name={"captcha"} component={Input} type={"input"} placeholder={"captcha"}/>
+                    <Field className={"form-control"} name={"captcha"} component={Input} type={"input"}
+                           placeholder={"captcha"}/>
                 </>
                 }
             </Form.Group>

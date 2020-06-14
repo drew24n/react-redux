@@ -38,21 +38,20 @@ type mapDispatchToProps = {
 }
 
 type userIdRoute = {
-    userId: number
+    userId: string
 }
 
-// @ts-ignore
 export type propsType = mapStateTopProps & mapDispatchToProps & RouteComponentProps<userIdRoute>
 
 const ProfileContainer: FC<propsType> = (props) => {
     let userId = props.match.params.userId
-    if (!props.match.params.userId) userId = props.ownerId
+    if (!props.match.params.userId) userId = String(props.ownerId)
 
     useEffect(() => {
         const getProfile = props.getProfile
         const getStatus = props.getStatus
-        getProfile(userId)
-        getStatus(userId)
+        getProfile(Number(userId))
+        getStatus(Number(userId))
     }, [props.getProfile, props.getStatus, userId])
 
     if (props.isFetching) {

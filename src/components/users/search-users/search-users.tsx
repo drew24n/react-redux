@@ -86,7 +86,7 @@ const SearchUsers: FC<propsType> = (props) => {
 const SearchForm: FC<InjectedFormProps<termSubmit>> = (props) => {
     return (
         <Form onSubmit={props.handleSubmit} inline className={"ml-auto"}>
-            <Field name={"term"} component={Input} type={"input"}
+            <Field className={"form-control"} name={"term"} component={Input} type={"input"}
                           placeholder={"Search user"}/>
             <Button as={"button"} variant="success" className={"ml-2 shadow-none"}>Search</Button>
             {props.error && <div className={"response-error text-center mb-3"}>{props.error}</div>}

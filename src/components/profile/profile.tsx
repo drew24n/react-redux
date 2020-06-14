@@ -35,7 +35,7 @@ type profileInfoOwnProps = {
 
 const Profile: FC<propsType> = (props) => {
     const onPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files.length) {
+        if (e.target.files?.length) {
             props.updateProfilePhoto(e.target.files[0])
         }
     }
@@ -115,21 +115,22 @@ const EditProfileInfo: FC<InjectedFormProps<profile, profileInfoOwnProps> & prof
             <ListGroup className={"d-flex flex-wrap flex-row text-center justify-content-center"}>
                 <div className={"group-title"}>General info:</div>
                 <ListGroup.Item>Name:
-                    <Field name={"fullName"} component={Input} type={"input"}
+                    <Field className={"form-control"} name={"fullName"} component={Input} type={"input"}
                            validate={[maxLength25]}/>
                 </ListGroup.Item>
                 <ListGroup.Item>About me:
-                    <Field name={"aboutMe"} component={Input} type={"input"}
+                    <Field className={"form-control"} name={"aboutMe"} component={Input} type={"input"}
                            validate={[maxLength25]}/>
                 </ListGroup.Item>
                 <ListGroup.Item>
                     <CustomJobCheckbox htmlFor="default-checkbox">Looking for a job
-                        <Field type="checkbox" id="default-checkbox" name="lookingForAJob" component={"input"}/>
+                        <Field className={"form-control"} type="checkbox" id="default-checkbox" name="lookingForAJob"
+                               component={"input"}/>
                         <span/>
                     </CustomJobCheckbox>
                 </ListGroup.Item>
                 <ListGroup.Item>Job desc.:
-                    <Field component={Input} name={"lookingForAJobDescription"}
+                    <Field className={"form-control"} component={Input} name={"lookingForAJobDescription"}
                            validate={[maxLength25]}/>
                 </ListGroup.Item>
             </ListGroup>
@@ -137,7 +138,7 @@ const EditProfileInfo: FC<InjectedFormProps<profile, profileInfoOwnProps> & prof
                 <div className={"group-title"}>Contacts:</div>
                 {Object.keys(props.profile.contacts).map(key =>
                     <ListGroup.Item key={key}>{key}:
-                        <Field name={"contacts." + key} placeholder={key} component={Input}
+                        <Field className={"form-control"} name={"contacts." + key} placeholder={key} component={Input}
                                validate={[maxLength25]}/>
                     </ListGroup.Item>)
                 }

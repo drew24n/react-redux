@@ -33,7 +33,7 @@ type mapDispatchToPropsType = {
 export type propsType = mapStateToPropsType & mapDispatchToPropsType
 
 const App: FC<propsType> = (props) => {
-    const catchAllUnhandledErrors = (reason: any) => {
+    const catchAllUnhandledErrors = (reason: PromiseRejectionEvent) => {
         props.setIsFetching(false)
         props.setErrorMessage(reason.reason.message)
     }
