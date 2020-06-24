@@ -2,9 +2,8 @@
   "name": "social",
   "version": "1.0.0",
   "private": true,
-  "homepage": "https://drew24n.github.io/react-redux/",
+  "homepage": "https://drew24n.github.io/react-redux-social-network-app/",
   "dependencies": {
-    "@types/jest": "^25.2.3",
     "@types/node": "^14.0.5",
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
